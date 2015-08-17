@@ -506,7 +506,7 @@ main {
     height: 0px;
 }
 
-.post-template img {
+.post-content img {
     width: 100%;
     height: auto;
 }
@@ -955,16 +955,20 @@ main {
     background-color: #fff;
 }
 
-.fb-like, #twitter-widget-0 {
+.fb-like, #twitter-widget-0, .reddit_button {
     float:left;
 }
 
-.fb-like {
+.fb-like, .reddit_button {
     margin-left: 15px;
 }
 
 .fb-like > span {
     vertical-align: top !important;
+}
+
+.reddit_button {
+    margin-top: 26px;
 }
 
 .like-buttons {
