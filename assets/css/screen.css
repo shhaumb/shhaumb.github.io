@@ -964,7 +964,7 @@ main {
     background-color: #fff;
 }
 
-.fb-like, #twitter-widget-0, .reddit_button {
+.fb-like, #twitter-widget-0, .twitter-share-button, .reddit_button {
     float:left;
 }
 
