@@ -637,6 +637,10 @@ h1.blog-title {
     color: rgb(250,231,180);
 }
 
+.post-template .header-content {
+    background-color: #B83E63;
+}
+
 .header-content li {
     display: inline-block;
     padding: 10px;
@@ -654,6 +658,11 @@ h1.blog-title {
 .header-content li:hover {
     background: #2B3137;
     box-shadow: 0 0 10px #10161c inset, 0 0 1px #46627f;
+}
+
+.post-template .header-content li:hover {
+    background: #8C2142;
+    box-shadow: 0 0 10px #792941 inset, 0 0 1px #D24771;
 }
 
 .main-nav .fa {
