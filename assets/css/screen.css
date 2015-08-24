@@ -638,7 +638,7 @@ h1.blog-title {
 }
 
 .post-template .header-content {
-    background-color: #B83E63;
+    background-color: #B83E3E;
 }
 
 .header-content li {
@@ -661,8 +661,8 @@ h1.blog-title {
 }
 
 .post-template .header-content li:hover {
-    background: #8C2142;
-    box-shadow: 0 0 10px #792941 inset, 0 0 1px #D24771;
+    background: #8C2121;
+    box-shadow: 0 0 10px #792929 inset, 0 0 1px #D24747;
 }
 
 .main-nav .fa {
