@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Yet another intro to Functional Programming</title>
+    <title>Theory behind functional programming</title>
     <meta name="description" content="">
 
     <meta name="HandheldFriendly" content="True">
@@ -11,25 +11,25 @@
 
     <link rel="shortcut icon" href="../favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=1ee64bf00f">    
-    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=1ee64bf00f">    
-    <link rel="stylesheet" href="../assets/highlighter/styles/tomorrow.css?v=1ee64bf00f">
-    <script src="../assets/highlighter/highlight.pack.js?v=1ee64bf00f"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=3bcd9f4e7a">    
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=3bcd9f4e7a">    
+    <link rel="stylesheet" href="../assets/highlighter/styles/tomorrow.css?v=3bcd9f4e7a">
+    <script src="../assets/highlighter/highlight.pack.js?v=3bcd9f4e7a"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
     <!--[if lt IE 9]>
-        <script src="/assets/js/html5shiv.js?v=1ee64bf00f"></script>
+        <script src="/assets/js/html5shiv.js?v=3bcd9f4e7a"></script>
     <![endif]-->
 
     <link rel="canonical" href="index.html">
     
     <meta property="og:site_name" content="ShubhamJain">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Yet another intro to Functional Programming">
-    <meta property="og:description" content="You know some C, C++, Java or Python or any other imperative and object oriented programming language. You've taken your hands on some functional programming earlier but didn't get the enlightenment. Or you haven't tried it at all but have...">
+    <meta property="og:title" content="Theory behind functional programming">
+    <meta property="og:description" content="There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening! There are two major sets of programming languages which call themselves...">
     <meta property="og:url" content="http://localhost:2368/yet-another-intro-to-functional-programming/">
     <meta property="article:published_time" content="2015-08-16T11:08:00.000Z">
-    <meta property="article:modified_time" content="2015-08-18T21:52:55.950Z">
+    <meta property="article:modified_time" content="2015-10-18T14:06:13.621Z">
     <meta property="article:tag" content="Functional programming">
     <meta property="article:tag" content="Haskell">
     <meta property="article:tag" content="Algebraic data types">
@@ -37,8 +37,8 @@
     <meta property="article:tag" content="Generics">
     
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Yet another intro to Functional Programming">
-    <meta name="twitter:description" content="You know some C, C++, Java or Python or any other imperative and object oriented programming language. You've taken your hands on some functional programming earlier but didn't get the enlightenment. Or you haven't tried it at all but have...">
+    <meta name="twitter:title" content="Theory behind functional programming">
+    <meta name="twitter:description" content="There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening! There are two major sets of programming languages which call themselves...">
     <meta name="twitter:url" content="http://localhost:2368/yet-another-intro-to-functional-programming/">
     
     <script type="application/ld+json">
@@ -54,12 +54,12 @@
         "sameAs": null,
         "description": "Software developer at <a href='https://www.hackerearth.com'>HackerErath</a>"
     },
-    "headline": "Yet another intro to Functional Programming",
+    "headline": "Theory behind functional programming",
     "url": "http://localhost:2368/yet-another-intro-to-functional-programming/",
     "datePublished": "2015-08-16T11:08:00.000Z",
-    "dateModified": "2015-08-18T21:52:55.950Z",
+    "dateModified": "2015-10-18T14:06:13.621Z",
     "keywords": "Functional programming, Haskell, Algebraic data types, Pattern matching, Generics",
-    "description": "You know some C, C++, Java or Python or any other imperative and object oriented programming language. You&#x27;ve taken your hands on some functional programming earlier but didn&#x27;t get the enlightenment. Or you haven&#x27;t tried it at all but have..."
+    "description": "There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening! There are two major sets of programming languages which call themselves..."
 }
     </script>
 
@@ -86,12 +86,12 @@
 
             <div class="inner">
                 <header class="post-header">
-                    <h1 class="post-title">Yet another intro to Functional Programming</h1>
+                    <h1 class="post-title">Theory behind functional programming</h1>
                     <time datetime="2015-08-16">16 Aug 2015</time>
                     <hr>
                 </header>
                 <section class="post-content">
-                    <p>You know some C, C++, Java or Python or any other imperative and object oriented programming language. You've taken your hands on some functional programming earlier but didn't get the enlightenment. Or you haven't tried it at all but have been listening the buzz about it for some time and want to go through it. Here is this post for you! I hope you get some enlightenments before the end of post.</p>
+                    <p>There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!</p>
 
 <p>There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another is ML-style. There are many similarities but still quite differences between these two sets of languages. In this post, I'll be talking about the later one. The programming languages which come under ML-style are ML, OCaml, Haskell, Scala, Rust etc. I'll be using Haskell for demonstration because of it's style of purity.</p>
 
@@ -383,7 +383,7 @@ list_of_ints = [1 4 5]
 
                 <section class="post-share">
                     <div class="post-share-icons">
-                        <a class="fa fa-twitter" href="https://twitter.com/share?text=Yet%20another%20intro%20to%20Functional%20Programming&amp;url=http://localhost:2368/yet-another-intro-to-functional-programming/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <a class="fa fa-twitter" href="https://twitter.com/share?text=Theory%20behind%20functional%20programming&amp;url=http://localhost:2368/yet-another-intro-to-functional-programming/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
                         <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/yet-another-intro-to-functional-programming/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
@@ -422,10 +422,10 @@ list_of_ints = [1 4 5]
         </div>
     </footer>
 
-    <script src="../public/jquery.js?v=1ee64bf00f"></script>
+    <script src="../public/jquery.js?v=3bcd9f4e7a"></script>
 
-    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=1ee64bf00f"></script>
-    <script type="text/javascript" src="../assets/js/index.js?v=1ee64bf00f"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=3bcd9f4e7a"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=3bcd9f4e7a"></script>
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
