@@ -1,4 +1,4 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Sun, 18 Oct 2015 14:08:44 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Theory behind functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Thu, 05 May 2016 20:01:26 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Theory behind functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
 &lt;p&gt;There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another&lt;/p&gt;</description><link>http://localhost:2368/yet-another-intro-to-functional-programming/</link><guid isPermaLink="false">ff1d4b87-f651-46c8-91ce-6aa7295a8169</guid><category>Functional programming</category><category>Haskell</category><category>Algebraic data types</category><category>Pattern matching</category><category>Generics</category><dc:creator>Shubham Jain</dc:creator><pubDate>Sun, 16 Aug 2015 11:08:00 GMT</pubDate><content:encoded>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
@@ -258,10 +258,10 @@ list_of_integers = Cons 1 (Cons 4 (Cons 5 Nil))
 &lt;p&gt;Hence a variable term of type &lt;code&gt;[Int]&lt;/code&gt; can be defined in Haskell by  &lt;/p&gt;
 
 &lt;pre&gt;&lt;code class="language-haskell"&gt;list_of_ints :: [Int]  
-list_of_ints = 1:4:5:Nil  
+list_of_ints = 1:4:5:[]  
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;There's another syntactic sugar for &lt;code&gt;a:b:c:d:Nil&lt;/code&gt; in Haskell, that is &lt;code&gt;[a b c d]&lt;/code&gt;. So above list assignment can be written simply  &lt;/p&gt;
+&lt;p&gt;There's another syntactic sugar for &lt;code&gt;a:b:c:d:[]&lt;/code&gt; in Haskell, that is &lt;code&gt;[a b c d]&lt;/code&gt;. So above list assignment can be written simply  &lt;/p&gt;
 
 &lt;pre&gt;&lt;code class="language-haskell"&gt;list_of_ints :: [Int]  
 list_of_ints = [1 4 5]  
