@@ -1,6 +1,6 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://localhost:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Thu, 05 May 2016 20:01:26 GMT</lastBuildDate><atom:link href="http://localhost:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Theory behind functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://0.0.0.0:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 27 Jul 2016 16:55:25 GMT</lastBuildDate><atom:link href="http://0.0.0.0:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>An introduction to functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
-&lt;p&gt;There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another&lt;/p&gt;</description><link>http://localhost:2368/yet-another-intro-to-functional-programming/</link><guid isPermaLink="false">ff1d4b87-f651-46c8-91ce-6aa7295a8169</guid><category>Functional programming</category><category>Haskell</category><category>Algebraic data types</category><category>Pattern matching</category><category>Generics</category><dc:creator>Shubham Jain</dc:creator><pubDate>Sun, 16 Aug 2015 11:08:00 GMT</pubDate><content:encoded>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
+&lt;p&gt;There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another&lt;/p&gt;</description><link>http://0.0.0.0:2368/yet-another-intro-to-functional-programming/</link><guid isPermaLink="false">ff1d4b87-f651-46c8-91ce-6aa7295a8169</guid><category>Functional programming</category><category>Haskell</category><category>Algebraic data types</category><category>Pattern matching</category><category>Generics</category><dc:creator>Shubham Jain</dc:creator><pubDate>Sun, 16 Aug 2015 11:08:00 GMT</pubDate><content:encoded>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
 &lt;p&gt;There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another is ML-style. There are many similarities but still quite differences between these two sets of languages. In this post, I'll be talking about the later one. The programming languages which come under ML-style are ML, OCaml, Haskell, Scala, Rust etc. I'll be using Haskell for demonstration because of it's style of purity.&lt;/p&gt;
 
@@ -24,7 +24,7 @@ String            -- another type
 &lt;pre&gt;&lt;code class="language-haskell"&gt;f x  
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Yes, no parenthesis at all! You can argue why such syntax is used, just wait and you will see a lot of generality is achieved by using such syntax. Now let me introduce one rule for construction of &lt;strong&gt;Term&lt;/strong&gt; that is &lt;em&gt;if &lt;code&gt;a&lt;/code&gt; is a term and &lt;code&gt;b&lt;/code&gt; is a term then &lt;code&gt;a b&lt;/code&gt; is also a term (&amp;#42; conditions apply)&lt;/em&gt;. I'll tell you about those conditions later in this post. For now, I can give you only this information about terms till we get to the end of &lt;strong&gt;Computaion&lt;/strong&gt; section. &lt;/p&gt;
+&lt;p&gt;Yes, no parenthesis at all! You can argue why such syntax is used, just wait and you will see a lot of generality is achieved by using such syntax. Now let me introduce one rule for construction of &lt;strong&gt;Term&lt;/strong&gt; that is &lt;em&gt;if &lt;code&gt;a&lt;/code&gt; is a term and &lt;code&gt;b&lt;/code&gt; is a term then &lt;code&gt;a b&lt;/code&gt; is also a term (&amp;#42; conditions apply)&lt;/em&gt;. I'll tell you about those conditions later in this post. For now, I can give you only this information about terms till we get to the end of &lt;strong&gt;Computation&lt;/strong&gt; section. &lt;/p&gt;
 
 &lt;h2 id="whatisarity"&gt;What is Arity?  &lt;/h2&gt;
 
@@ -261,13 +261,13 @@ list_of_integers = Cons 1 (Cons 4 (Cons 5 Nil))
 list_of_ints = 1:4:5:[]  
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;There's another syntactic sugar for &lt;code&gt;a:b:c:d:[]&lt;/code&gt; in Haskell, that is &lt;code&gt;[a b c d]&lt;/code&gt;. So above list assignment can be written simply  &lt;/p&gt;
+&lt;p&gt;There's another syntactic sugar for &lt;code&gt;a:b:c:d:[]&lt;/code&gt; in Haskell, that is &lt;code&gt;[a, b, c, d]&lt;/code&gt;. So above list assignment can be written simply  &lt;/p&gt;
 
 &lt;pre&gt;&lt;code class="language-haskell"&gt;list_of_ints :: [Int]  
-list_of_ints = [1 4 5]  
+list_of_ints = [1, 4, 5]  
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;So now you know what magics Haskell is doing when you write a list in notation &lt;code&gt;[a b c .. g h]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So now you know what magics Haskell is doing when you write a list in notation &lt;code&gt;[a, b, c, .. g, h]&lt;/code&gt;.&lt;/p&gt;
 
 &lt;hr&gt;
 
