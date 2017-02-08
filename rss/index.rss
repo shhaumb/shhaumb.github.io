@@ -1,4 +1,258 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://0.0.0.0:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 27 Jul 2016 16:55:25 GMT</lastBuildDate><atom:link href="http://0.0.0.0:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>An introduction to functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://0.0.0.0:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 08 Feb 2017 22:52:51 GMT</lastBuildDate><atom:link href="http://0.0.0.0:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Let's do some Math</title><description>&lt;p&gt;In this post, I will try to do basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers themselves start behaving like functions?&lt;/p&gt;
+
+&lt;p&gt;Let's start with&lt;/p&gt;</description><link>http://0.0.0.0:2368/lets-do-some-math/</link><guid isPermaLink="false">d5cddb29-ce74-4c91-8b50-90a2c1049090</guid><category>Mathematics</category><category>Church numerals</category><dc:creator>Shubham Jain</dc:creator><pubDate>Wed, 08 Feb 2017 22:37:00 GMT</pubDate><content:encoded>&lt;p&gt;In this post, I will try to do basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers themselves start behaving like functions?&lt;/p&gt;
+
+&lt;p&gt;Let's start with this. Suppose there is some function \(f\). If this function \(f\) is applied \(n\) number of times to \(x\), then we can notate it by &lt;br&gt;
+$$\underset{\text{n times}}{\underbrace{f(f(..f}}(x))) \equiv f^n(x)$$
+where \(n\) is a natural number.&lt;/p&gt;
+
+&lt;p&gt;So we can say &lt;br&gt;
+$$\begin{align}
+f^1(x) &amp;amp;= f(x), \\ &lt;br&gt;
+f^2(x) &amp;amp;= f(f(x)) &lt;br&gt;
+\end{align}$$
+and so on..&lt;/p&gt;
+
+&lt;p&gt;What if \(n\) is \(0\)? \(f\) is applied \(0\) number of times to \(x\). Hence&lt;/p&gt;
+
+&lt;p&gt;$$f^0(x) = x$$&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Before moving ahead, Let me tell you how a function application is written as lambda term. &lt;br&gt;
+  And the rule is simple, we omit the parenthesis around "\(x\)" in "\(f(x)\)" and write it as just "\(f\ x\)".&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let's now write \(f^n(x)\) in lambda notation, i.e. &lt;br&gt;
+$$f^n(x) \equiv \overline{n}\ f\ x$$
+$$or$$
+$$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x)))$$&lt;/p&gt;
+
+&lt;p&gt;What is \(\overline{n}\) here? And how to read the expression \(\overline{n}\ f\ x\)?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;\(\overline{n}\) (which is \(n\) with bar on top) is &lt;strong&gt;Church numeral&lt;/strong&gt; function associated with the natural number \(n\).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;\(\overline{n}\ f\ x\) should be read as \((\overline{n}\ f)\ x\) because application in lambda notations are left-associative. Here \(\overline{n}\) is being applied to \(f\) which after application returns a function that gets applied to \(x\). So \(\overline{n}\) is behaving like a higher order function or operator. See examples below:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$$\begin{align}
+\overline{0}\ f\ x &amp;amp;= x, \\
+\overline{1}\ f\ x &amp;amp;= (f\ x), \\
+\overline{2}\ f\ x &amp;amp;= (f\ (f\ x))
+\end{align}$$
+and so on..&lt;/p&gt;
+
+&lt;p&gt;We can constructively create these numerals by Piano's axioms which states: &lt;br&gt;
+1) 0 is a natural number. &lt;br&gt;
+2) If \(n\) is a natural number, then \(n^{+1}\) or \(Succ(n)\) is also a natural number. &lt;br&gt;
+So these axioms states then we can construct all natural numbers using \(0\) and \(Succ\).&lt;/p&gt;
+
+&lt;p&gt;Let's write functional definitions for lambda terms associated with \(0\) and \(Succ\) (which are isomorphic to Peano's first two axioms). &lt;br&gt;
+$$\begin{align}
+  \overline{0}\ f\ x &amp;amp;:= x \label{1} \tag{1} \\
+  Succ\ \overline{n}\ f\ x &amp;amp;:= f\ (\overline{n}\ f\ x) \label{2} \tag{2} \\
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;You can simply understand the above definition of \(Succ\) from following:&lt;/p&gt;
+
+&lt;p&gt;Since &lt;br&gt;
+$$\underset{\text{n+1 times}}{\underbrace{f(f(..f}}(x))) \equiv f(\underset{\text{n times}}{\underbrace{f(f(..f}}(x))))$$
+hence &lt;br&gt;
+$$(Succ\ \overline{n})\ f\ x = f\ (\overline{n}\ f\ x)$$
+and if we just omit the parenthesis, we obtain \eqref{2} &lt;br&gt;
+$$Succ\ \overline{n}\ f\ x = f\ (\overline{n}\ f\ x)$$&lt;/p&gt;
+
+&lt;p&gt;Using these constructive terms we can obtain numerals for all natural numbers: &lt;br&gt;
+$$\overline{1} \equiv Succ\ \overline{0}$$
+$$\overline{2} \equiv Succ\ \overline{1}$$
+$$\overline{3} \equiv Succ\ \overline{2}$$
+$$\overline{4} \equiv Succ\ \overline{3}$$
+and so on..&lt;/p&gt;
+
+&lt;p&gt;I'll omit the bar on top of Church numeral terms from now on. So you should consider all numbers to be church numerals by default in expressions below.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Let's check what \(2\ f\ x\) comes out to be?&lt;/p&gt;
+
+&lt;p&gt;$$\begin{align}
+2\ f\ x &amp;amp; = Succ\ 1\ f\ x &amp;amp;&amp;amp;\text{(using definition of 2)} \\ &lt;br&gt;
+ &amp;amp; = f\ (1\ f\ x) &amp;amp;&amp;amp;\text{(using definition of Succ)} \\
+ &amp;amp; = f\ (Succ\ 0\ f\ x) &amp;amp;&amp;amp;\text{(using definition of 1)} \\
+ &amp;amp; = f\ (f\ ( 0\ f\ x)) &amp;amp;&amp;amp;\text{(using definition of Succ)} \\
+ &amp;amp; = f\ (f\ x) &amp;amp;&amp;amp;\text{(using definition of 0)} \\
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;which is it ought to be.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="addition"&gt;Addition&lt;/h3&gt;
+
+&lt;p&gt;Can we define addition function over these numerals?&lt;/p&gt;
+
+&lt;p&gt;We know that &lt;br&gt;
+$$Succ\ m = m+1$$
+and &lt;br&gt;
+$$m+n = m\ \underset{\text{n times}}{\underbrace{+1 +1 .. +1}}$$
+So &lt;br&gt;
+$$Plus\ m\ n = \underset{\text{n times}}{\underbrace{(Succ\ (Succ\ ..(Succ\ }}m)))$$
+Hence &lt;br&gt;
+$$Plus\ m\ n := n\ Succ\ m \tag{3}$$&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="someproofs"&gt;Some proofs&lt;/h3&gt;
+
+&lt;p&gt;$$\begin{align}
+Plus\ m\ 0 = 0\ Succ\ m = m \implies m + 0 = m \label{4} \tag{4} &lt;br&gt;
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;$$Succ\ m\ Succ\ n = Succ\ (m\ Succ\ n) \implies n + (m^{+1}) = (n + m)^{+1} \tag{5}$$&lt;/p&gt;
+
+&lt;p&gt;We have seen "\(m + 0 = m\)". &lt;br&gt;
+Let's try to prove "\(0 + m = m\)" by induction &lt;br&gt;
+&lt;strong&gt;Hypothesis:&lt;/strong&gt; \(m\ Succ\ 0 = m\) &lt;br&gt;
+&lt;strong&gt;Case:&lt;/strong&gt; \(m = 0\)
+ $$\begin{align}
+ Plus\ 0\ 0 = 0 &amp;amp;&amp;amp;\text{(using \eqref{4})}
+ \end{align}$$
+&lt;strong&gt;Case:&lt;/strong&gt; \(m = Succ\ n\)
+ $$\begin{align}
+Plus\ 0\ (Succ\ n) &amp;amp; = (Succ\ n)\ Succ\ 0  &amp;amp;&amp;amp; \text{(using definition of Plus)} \\ &lt;br&gt;
+ &amp;amp; = Succ\ n\ Succ\ 0 \\
+ &amp;amp; = Succ\ (n\ Succ\ 0) &amp;amp;&amp;amp; \text{(using definition of Succ)} \\
+ &amp;amp; = Succ\ n &amp;amp;&amp;amp; \text{(using induction hypothesis)} 
+\end{align}$$
+Hence &lt;br&gt;
+$$\begin{align}
+\begin{split}
+Plus\ 0\ m &amp;amp; = m \\ &lt;br&gt;
+or &amp;amp; \\ &lt;br&gt;
+m\ Succ\ 0 &amp;amp; = m &lt;br&gt;
+\end{split} \label{6} \tag{6}
+\end{align}$$&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="compositionfunction"&gt;Composition function&lt;/h3&gt;
+
+&lt;p&gt;The composition function "\(\circ\)" is an infix operator and is defined by&lt;/p&gt;
+
+&lt;p&gt;$$Compose\ f\ g\ x \equiv (f\ \circ\ g)\ x := f\ (g\ x) \label{7} \tag{7}$$&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="multiplication"&gt;Multiplication&lt;/h3&gt;
+
+&lt;p&gt;Let's define function for multiplication over numerals &lt;br&gt;
+We know that &lt;br&gt;
+$$m\ \times\ n = 0\ \underset{\text{n times}}{\underbrace{+\ m\ +m\ +\ ..\ +m}}$$
+So &lt;br&gt;
+$$\begin{align}
+Mult\ m\ n &amp;amp; = \underset{\text{n times}}{\underbrace{((m\ Succ)\ ((m\ Succ)..((m\ Succ)}}\ 0))) \\ &lt;br&gt;
+ &amp;amp; = n\ (m\ Succ)\ 0 \\
+ &amp;amp; = (n\ \circ\ m)\ Succ\ 0 &amp;amp;&amp;amp; \text{(using \eqref{7} definition of Composition operator)} \\
+ &amp;amp; = (n\ \circ\ m) &amp;amp;&amp;amp; \text{(using \eqref{6} ‘m Succ 0 = m')} 
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;Hence&lt;/p&gt;
+
+&lt;p&gt;$$\begin{align}
+Mult\ m\ n &amp;amp;= n\ \circ\ m \label{8} \tag{8} &lt;br&gt;
+\end{align}$$&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Multiplication of two numerals is just the composition of them.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="power"&gt;Power&lt;/h3&gt;
+
+&lt;p&gt;Let's define power (exponentiation) function for numerals&lt;/p&gt;
+
+&lt;p&gt;We know that if \(n\) is a numeral then &lt;br&gt;
+$$\begin{align}
+\overline{n}\ f\ x &amp;amp;\equiv \underset{\text{n times}}{\underbrace{(f\ (f\ (..(f}}\ x))) \\
+&amp;amp;= \underset{\text{n times}}{\underbrace{(f\ \circ f\ \circ\ ..\ \circ\ f)}}\ x &amp;amp;&amp;amp; \text{(using \eqref{7} definition of Composition operator)}
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;hence we can say, (by omitting the \(x\) in above equation) &lt;br&gt;
+$$\begin{align}
+\overline{n}\ f \equiv \underset{\text{n times}}{\underbrace{(f\ \circ f\ \circ\ ..\ \circ\ f)}} \label{9} \tag{9}
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;Again, by definition of power &lt;br&gt;
+$$m^n = \underset{\text{n times}}{\underbrace{m\ \times\ m\ \times\ ..\ \times\ m}}$$&lt;/p&gt;
+
+&lt;p&gt;Hence we can define \(Power\) function as &lt;br&gt;
+$$\begin{align}
+Power\ m\ n &amp;amp;= \underset{\text{n times}}{\underbrace{m\ \circ\ m\ \circ\ ..\ \circ\ m}} &amp;amp;&amp;amp; \text{(using \eqref{8} definiion of Multiplication)} \\ &lt;br&gt;
+&amp;amp;= (n\ m) &amp;amp;&amp;amp; \text{(using \eqref{9})}
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;Hence &lt;br&gt;
+$$\begin{align}
+Power\ m\ n = n\ m \label{10} \tag{10} &lt;br&gt;
+\end{align}$$&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Power operation for two numerals is just the application between them.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="insights"&gt;Insights&lt;/h3&gt;
+
+&lt;p&gt;Let's define identity function &lt;br&gt;
+$$I\ x = x \tag{11}$$&lt;/p&gt;
+
+&lt;p&gt;We know that &lt;br&gt;
+$$\begin{align}
+0\ n\ x = x &amp;amp;&amp;amp; \text{(by definition of 0)} &lt;br&gt;
+\end{align}$$
+hence, \((0\ n)\) must be equal to Identity function \(I\) so that appying \(x\) to it returns \(x\). So &lt;br&gt;
+$$0\ n = I \label{12} \tag{12}$$&lt;/p&gt;
+
+&lt;p&gt;Again, we know that &lt;br&gt;
+$$\begin{align}
+&amp;amp;&amp;amp; 1\ f\ x &amp;amp;= f\ x &amp;amp;&amp;amp; \text{(by definition of 1)} \\
+or &amp;amp;&amp;amp; 1\ f &amp;amp;= f &amp;amp;&amp;amp; \text{(omitting x both side)} &lt;br&gt;
+\end{align}$$
+hence \(1\) is nothing but Identity function \(I\) &lt;br&gt;
+$$1 = I \label{13} \tag{13}$$&lt;/p&gt;
+
+&lt;p&gt;\eqref{12} &amp;amp; \eqref{13} implies
+$$0\ n = 1 \tag{14}$$
+If we see above equation in context of \eqref{10} then it states \(Power\ n\ 0 = 1\) or arithmatically&lt;/p&gt;
+
+&lt;p&gt;$$\bbox[10px,border:1px solid #777]
+{n^0 = 1}
+$$&lt;/p&gt;
+
+&lt;p&gt;What a classical result!&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="moretheorems"&gt;More theorems?&lt;/h3&gt;
+
+&lt;p&gt;By composition operator definition \eqref{7},&lt;/p&gt;
+
+&lt;p&gt;$$(l\ (m\ n)) \equiv (l\ \circ\ m)\ n$$&lt;/p&gt;
+
+&lt;p&gt;If \(l\), \(m\) and \(n\) are numerals then (by \eqref{8} and \eqref{10}) above equation is equivalent to&lt;/p&gt;
+
+&lt;p&gt;$$\begin{align}
+Power\ (Power\ n\ m)\ l \equiv Power\ n\ (Mult\ m\ l) \label{15} \tag{15} &lt;br&gt;
+\end{align}$$&lt;/p&gt;
+
+&lt;p&gt;or arithmetically,&lt;/p&gt;
+
+&lt;p&gt;$$\bbox[10px,border:1px solid #777]
+{(n^m)^l = n^{m\ \times\ l}}
+$$&lt;/p&gt;
+
+&lt;p&gt;Everything is making sense!! :D&lt;/p&gt;</content:encoded></item><item><title>An introduction to functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
 &lt;p&gt;There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another&lt;/p&gt;</description><link>http://0.0.0.0:2368/yet-another-intro-to-functional-programming/</link><guid isPermaLink="false">ff1d4b87-f651-46c8-91ce-6aa7295a8169</guid><category>Functional programming</category><category>Haskell</category><category>Algebraic data types</category><category>Pattern matching</category><category>Generics</category><dc:creator>Shubham Jain</dc:creator><pubDate>Sun, 16 Aug 2015 11:08:00 GMT</pubDate><content:encoded>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
