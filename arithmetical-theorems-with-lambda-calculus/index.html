@@ -1,3 +1,4 @@
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,10 +11,10 @@
 
     <link rel="shortcut icon" href="../favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=1681e783b8">    
-    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=1681e783b8">    
-    <link rel="stylesheet" href="../assets/highlighter/styles/tomorrow.css?v=1681e783b8">
-    <script src="../assets/highlighter/highlight.pack.js?v=1681e783b8"></script>
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=baa1dd1de0">    
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=baa1dd1de0">    
+    <link rel="stylesheet" href="../assets/highlighter/styles/tomorrow.css?v=baa1dd1de0">
+    <script src="../assets/highlighter/highlight.pack.js?v=baa1dd1de0"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['\\(','\\)']]}});
@@ -21,25 +22,26 @@
     <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 
     <!--[if lt IE 9]>
-        <script src="/assets/js/html5shiv.js?v=1681e783b8"></script>
+        <script src="/assets/js/html5shiv.js?v=baa1dd1de0"></script>
     <![endif]-->
 
-    <link rel="canonical" href="http://0.0.0.0:2368/lets-do-some-math/">
+    <link rel="canonical" href="http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/">
     
     <meta property="og:site_name" content="ShubhamJain">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Arithmetical theorems with Lambda Calculus">
     <meta property="og:description" content="In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers...">
-    <meta property="og:url" content="http://0.0.0.0:2368/lets-do-some-math/">
+    <meta property="og:url" content="http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/">
     <meta property="article:published_time" content="2017-02-08T22:37:00.000Z">
-    <meta property="article:modified_time" content="2017-02-08T23:28:31.942Z">
-    <meta property="article:tag" content="Mathematics">
+    <meta property="article:modified_time" content="2017-02-09T11:43:51.609Z">
     <meta property="article:tag" content="Church numerals">
+    <meta property="article:tag" content="Lambda Calculus">
+    <meta property="article:tag" content="Arithmetic">
     
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Arithmetical theorems with Lambda Calculus">
     <meta name="twitter:description" content="In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers...">
-    <meta name="twitter:url" content="http://0.0.0.0:2368/lets-do-some-math/">
+    <meta name="twitter:url" content="http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/">
     
     <script type="application/ld+json">
 {
@@ -55,10 +57,10 @@
         "description": "Software developer at <a href='https://www.hackerearth.com'>HackerErath</a>"
     },
     "headline": "Arithmetical theorems with Lambda Calculus",
-    "url": "http://0.0.0.0:2368/lets-do-some-math/",
+    "url": "http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/",
     "datePublished": "2017-02-08T22:37:00.000Z",
-    "dateModified": "2017-02-08T23:28:31.942Z",
-    "keywords": "Mathematics, Church numerals",
+    "dateModified": "2017-02-09T11:43:51.609Z",
+    "keywords": "Church numerals, Lambda Calculus, Arithmetic",
     "description": "In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers..."
 }
     </script>
@@ -66,7 +68,7 @@
     <meta name="generator" content="Ghost 0.6">
     <link rel="alternate" type="application/rss+xml" title="ShubhamJain" href="http://0.0.0.0:2368/rss/">
 </head>
-<body class="post-template tag-mathematics tag-church-numerals">
+<body class="post-template tag-church-numerals tag-lambda-calculus tag-arithmetic">
 
     <div class="header-content">
     <div class="inner">
@@ -81,7 +83,7 @@
 
 <main class="content" role="main">
 
-    <article class="post tag-mathematics tag-church-numerals">
+    <article class="post tag-church-numerals tag-lambda-calculus tag-arithmetic">
 
 
             <div class="inner">
@@ -116,13 +118,13 @@ and so on..</p>
 <p>Let's now write \(f^n(x)\) in lambda notation, i.e. <br>
 $$f^n(x) \equiv \overline{n}\ f\ x$$
 $$or$$
-$$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x)))$$</p>
+$$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x))) \label{n1} \tag{n1}$$</p>
 
 <p>What is \(\overline{n}\) here? And how to read the expression \(\overline{n}\ f\ x\)?</p>
 
 <ul>
 <li><p>\(\overline{n}\) (which is \(n\) with bar on top) is <strong>Church numeral</strong> function associated with the natural number \(n\).</p></li>
-<li><p>\(\overline{n}\ f\ x\) should be read as \((\overline{n}\ f)\ x\) because application in lambda notations are left-associative. Here \(\overline{n}\) is being applied to \(f\) which after application returns a function that gets applied to \(x\). So \(\overline{n}\) is behaving like a higher order function or operator. See examples below:</p></li>
+<li><p>\(\overline{n}\ f\ x\) should be read as \((\overline{n}\ f)\ x\) because application in lambda notations is left-associative. Here \(\overline{n}\) is being applied to \(f\), which after application returns a function that gets applied to \(x\). So \(\overline{n}\) is behaving like a higher order function or operator. See examples below:</p></li>
 </ul>
 
 <p>$$\begin{align}
@@ -132,7 +134,7 @@ $$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x)
 \end{align}$$
 and so on..</p>
 
-<p>We can constructively create these numerals by Piano's axioms which states: <br>
+<p>We can constructively create these numerals by Peano's axioms which states: <br>
 1) 0 is a natural number. <br>
 2) If \(n\) is a natural number, then \(n^{+1}\) or \(Succ(n)\) is also a natural number. <br>
 So these axioms states then we can construct all natural numbers using \(0\) and \(Succ\).</p>
@@ -184,10 +186,10 @@ and so on..</p>
 <p>We know that <br>
 $$Succ\ m = m+1$$
 and <br>
-$$m+n = m\ \underset{\text{n times}}{\underbrace{+1 +1 .. +1}}$$
+$$m+n = (((m\ \underset{\text{n times}}{\underbrace{+1) +1)\ .. +1)}}$$
 So <br>
 $$Plus\ m\ n = \underset{\text{n times}}{\underbrace{(Succ\ (Succ\ ..(Succ\ }}m)))$$
-Hence <br>
+Hence by \eqref{n1} <br>
 $$Plus\ m\ n := n\ Succ\ m \tag{3}$$</p>
 
 <hr>
@@ -210,7 +212,7 @@ Let's try to prove "\(0 + m = m\)" by induction <br>
 <strong>Case:</strong> \(m = Succ\ n\)
  $$\begin{align}
 Plus\ 0\ (Succ\ n) &amp; = (Succ\ n)\ Succ\ 0  &amp;&amp; \text{(using definition of Plus)} \\ <br>
- &amp; = Succ\ n\ Succ\ 0 \\
+ &amp; = Succ\ n\ Succ\ 0 &amp;&amp; \text{(omitting parenthesis)} \\
  &amp; = Succ\ (n\ Succ\ 0) &amp;&amp; \text{(using definition of Succ)} \\
  &amp; = Succ\ n &amp;&amp; \text{(using induction hypothesis)} 
 \end{align}$$
@@ -241,7 +243,7 @@ $$m\ \times\ n = 0\ \underset{\text{n times}}{\underbrace{+\ m\ +m\ +\ ..\ +m}}$
 So <br>
 $$\begin{align}
 Mult\ m\ n &amp; = \underset{\text{n times}}{\underbrace{((m\ Succ)\ ((m\ Succ)..((m\ Succ)}}\ 0))) \\ <br>
- &amp; = n\ (m\ Succ)\ 0 \\
+ &amp; = n\ (m\ Succ)\ 0 &amp;&amp;  \text{(by notation \eqref{n1})}\\
  &amp; = (n\ \circ\ m)\ Succ\ 0 &amp;&amp; \text{(using \eqref{7} definition of Composition operator)} \\
  &amp; = (n\ \circ\ m) &amp;&amp; \text{(using \eqref{6} ‘m Succ 0 = m')} 
 \end{align}$$</p>
@@ -344,6 +346,50 @@ Power\ (Power\ n\ m)\ l \equiv Power\ n\ (Mult\ m\ l) \label{15} \tag{15} <br>
 $$</p>
 
 <p>Everything is making sense!! :D</p>
+
+<hr>
+
+<h3 id="letsdosameinhaskellinteractiveshell">Let's do same in Haskell interactive shell</h3>
+
+<p>Launch <code>ghci</code></p>
+
+<p>Here in shell, we'll define arithmetical operations given by above definitions and do computations using them.</p>
+
+<pre><code class="language-haskell">let zero f x = x  
+let succ n f x = f (n f x)
+
+let one = succ zero  
+let two = succ one  
+let three = succ two  
+let four = succ three
+
+let plus m n = n succ m  
+let mult m n = n . m  
+let power m n = n m
+
+let convert n = n (+ 1) 0  
+</code></pre>
+
+<p>We've defined <code>convert</code> function to convert church numeral (which is a function) to number so that we can confirm our computation.</p>
+
+<p>Let's do some computations using defined functions. (in <code>ghci</code> shell)  </p>
+
+<pre><code class="language-haskell">Prelude&gt; convert (plus two three)   -- 2 + 3  
+5  
+Prelude&gt; convert (mult two three)   -- 2 x 3  
+6  
+Prelude&gt; convert (power two three)  -- 2 ^ 3  
+8
+
+Prelude&gt; convert (four . three)     -- 3 x 4  
+12  
+Prelude&gt; convert (two three)        -- 3 ^ 2  
+9  
+Prelude&gt; convert (three two two)    -- 2 ^ (2 ^ 3)  
+256  
+</code></pre>
+
+<p>So we saw that, arithmetic operations can be defined in untyped Lambda Calculus without using any prior definition if natural numbers are treated as Church numerals.</p>
                 </section>
                 <section class="like-buttons">
                   <a href="https://twitter.com/share" class="twitter-share-button" data-via="sjiitr">Tweet</a>
@@ -359,24 +405,24 @@ $$</p>
           }(document, 'script', 'facebook-jssdk'));</script>
                   <div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
 
-                  <script type="text/javascript" src="https://www.reddit.com/buttonlite.js?i=1&amp;url=/lets-do-some-math/"></script>
+                  <script type="text/javascript" src="https://www.reddit.com/buttonlite.js?i=1&amp;url=/arithmetical-theorems-with-lambda-calculus/"></script>
                 </section>
 
                 <section class="post-share">
                     <div class="post-share-icons">
-                        <a class="fa fa-twitter" href="https://twitter.com/share?text=Arithmetical%20theorems%20with%20Lambda%20Calculus&amp;url=http://0.0.0.0:2368/lets-do-some-math/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                        <a class="fa fa-twitter" href="https://twitter.com/share?text=Arithmetical%20theorems%20with%20Lambda%20Calculus&amp;url=http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                             <span class="hidden">Twitter</span>
                         </a>
-                        <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://0.0.0.0:2368/lets-do-some-math/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                        <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                             <span class="hidden">Facebook</span>
                         </a>
-                        <a class="fa fa-google-plus" href="https://plus.google.com/share?url=http://0.0.0.0:2368/lets-do-some-math/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                        <a class="fa fa-google-plus" href="https://plus.google.com/share?url=http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                             <span class="hidden">Google+</span>
                         </a>
                     </div>
                     <h6>Share this post:</h6>
                 </section>
-                <p class="post-tags"><i class="fa fa-tags"></i> <a href="../tag/mathematics/">Mathematics</a>, <a href="../tag/church-numerals/">Church numerals</a></p>
+                <p class="post-tags"><i class="fa fa-tags"></i> <a href="../tag/church-numerals/">Church numerals</a>, <a href="../tag/lambda-calculus/">Lambda Calculus</a>, <a href="../tag/arithmetic/">Arithmetic</a></p>
             </div>
             <section class="post-author">
                 <div class="inner">
@@ -403,10 +449,10 @@ $$</p>
         </div>
     </footer>
 
-    <script src="../public/jquery.js?v=1681e783b8"></script>
+    <script src="../public/jquery.js?v=baa1dd1de0"></script>
 
-    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=1681e783b8"></script>
-    <script type="text/javascript" src="../assets/js/index.js?v=1681e783b8"></script>
+    <script type="text/javascript" src="../assets/js/jquery.fitvids.js?v=baa1dd1de0"></script>
+    <script type="text/javascript" src="../assets/js/index.js?v=baa1dd1de0"></script>
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new

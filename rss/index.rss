@@ -1,6 +1,6 @@
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://0.0.0.0:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Wed, 08 Feb 2017 23:29:57 GMT</lastBuildDate><atom:link href="http://0.0.0.0:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Arithmetical theorems with Lambda Calculus</title><description>&lt;p&gt;In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers themselves start behaving like functions?&lt;/p&gt;
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0"><channel><title>ShubhamJain</title><description>Thoughts, stories and ideas.</description><link>http://0.0.0.0:2368/</link><generator>Ghost 0.6</generator><lastBuildDate>Thu, 09 Feb 2017 11:54:29 GMT</lastBuildDate><atom:link href="http://0.0.0.0:2368/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Arithmetical theorems with Lambda Calculus</title><description>&lt;p&gt;In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers themselves start behaving like functions?&lt;/p&gt;
 
-&lt;p&gt;Let's start with this. Suppose&lt;/p&gt;</description><link>http://0.0.0.0:2368/lets-do-some-math/</link><guid isPermaLink="false">d5cddb29-ce74-4c91-8b50-90a2c1049090</guid><category>Mathematics</category><category>Church numerals</category><dc:creator>Shubham Jain</dc:creator><pubDate>Wed, 08 Feb 2017 22:37:00 GMT</pubDate><content:encoded>&lt;p&gt;In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers themselves start behaving like functions?&lt;/p&gt;
+&lt;p&gt;Let's start with this. Suppose&lt;/p&gt;</description><link>http://0.0.0.0:2368/arithmetical-theorems-with-lambda-calculus/</link><guid isPermaLink="false">d5cddb29-ce74-4c91-8b50-90a2c1049090</guid><category>Church numerals</category><category>Lambda Calculus</category><category>Arithmetic</category><dc:creator>Shubham Jain</dc:creator><pubDate>Wed, 08 Feb 2017 22:37:00 GMT</pubDate><content:encoded>&lt;p&gt;In this post, I will introduce basic arithmetic with the lens of Lambda Calculus and try to derive some theorems about natural numbers. We know what it means when a function applies to a number, but what happens when numbers themselves start behaving like functions?&lt;/p&gt;
 
 &lt;p&gt;Let's start with this. Suppose there is some function \(f\). If this function \(f\) is applied \(n\) number of times to \(x\), then we can notate it by &lt;br&gt;
 $$\underset{\text{n times}}{\underbrace{f(f(..f}}(x))) \equiv f^n(x)$$
@@ -25,13 +25,13 @@ and so on..&lt;/p&gt;
 &lt;p&gt;Let's now write \(f^n(x)\) in lambda notation, i.e. &lt;br&gt;
 $$f^n(x) \equiv \overline{n}\ f\ x$$
 $$or$$
-$$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x)))$$&lt;/p&gt;
+$$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x))) \label{n1} \tag{n1}$$&lt;/p&gt;
 
 &lt;p&gt;What is \(\overline{n}\) here? And how to read the expression \(\overline{n}\ f\ x\)?&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;\(\overline{n}\) (which is \(n\) with bar on top) is &lt;strong&gt;Church numeral&lt;/strong&gt; function associated with the natural number \(n\).&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;\(\overline{n}\ f\ x\) should be read as \((\overline{n}\ f)\ x\) because application in lambda notations are left-associative. Here \(\overline{n}\) is being applied to \(f\) which after application returns a function that gets applied to \(x\). So \(\overline{n}\) is behaving like a higher order function or operator. See examples below:&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;\(\overline{n}\ f\ x\) should be read as \((\overline{n}\ f)\ x\) because application in lambda notations is left-associative. Here \(\overline{n}\) is being applied to \(f\), which after application returns a function that gets applied to \(x\). So \(\overline{n}\) is behaving like a higher order function or operator. See examples below:&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;$$\begin{align}
@@ -41,7 +41,7 @@ $$\overline{n}\ f\ x \equiv \underset{\text{n times}}{\underbrace{(f(f..(f}}\ x)
 \end{align}$$
 and so on..&lt;/p&gt;
 
-&lt;p&gt;We can constructively create these numerals by Piano's axioms which states: &lt;br&gt;
+&lt;p&gt;We can constructively create these numerals by Peano's axioms which states: &lt;br&gt;
 1) 0 is a natural number. &lt;br&gt;
 2) If \(n\) is a natural number, then \(n^{+1}\) or \(Succ(n)\) is also a natural number. &lt;br&gt;
 So these axioms states then we can construct all natural numbers using \(0\) and \(Succ\).&lt;/p&gt;
@@ -93,10 +93,10 @@ and so on..&lt;/p&gt;
 &lt;p&gt;We know that &lt;br&gt;
 $$Succ\ m = m+1$$
 and &lt;br&gt;
-$$m+n = m\ \underset{\text{n times}}{\underbrace{+1 +1 .. +1}}$$
+$$m+n = (((m\ \underset{\text{n times}}{\underbrace{+1) +1)\ .. +1)}}$$
 So &lt;br&gt;
 $$Plus\ m\ n = \underset{\text{n times}}{\underbrace{(Succ\ (Succ\ ..(Succ\ }}m)))$$
-Hence &lt;br&gt;
+Hence by \eqref{n1} &lt;br&gt;
 $$Plus\ m\ n := n\ Succ\ m \tag{3}$$&lt;/p&gt;
 
 &lt;hr&gt;
@@ -119,7 +119,7 @@ Let's try to prove "\(0 + m = m\)" by induction &lt;br&gt;
 &lt;strong&gt;Case:&lt;/strong&gt; \(m = Succ\ n\)
  $$\begin{align}
 Plus\ 0\ (Succ\ n) &amp;amp; = (Succ\ n)\ Succ\ 0  &amp;amp;&amp;amp; \text{(using definition of Plus)} \\ &lt;br&gt;
- &amp;amp; = Succ\ n\ Succ\ 0 \\
+ &amp;amp; = Succ\ n\ Succ\ 0 &amp;amp;&amp;amp; \text{(omitting parenthesis)} \\
  &amp;amp; = Succ\ (n\ Succ\ 0) &amp;amp;&amp;amp; \text{(using definition of Succ)} \\
  &amp;amp; = Succ\ n &amp;amp;&amp;amp; \text{(using induction hypothesis)} 
 \end{align}$$
@@ -150,7 +150,7 @@ $$m\ \times\ n = 0\ \underset{\text{n times}}{\underbrace{+\ m\ +m\ +\ ..\ +m}}$
 So &lt;br&gt;
 $$\begin{align}
 Mult\ m\ n &amp;amp; = \underset{\text{n times}}{\underbrace{((m\ Succ)\ ((m\ Succ)..((m\ Succ)}}\ 0))) \\ &lt;br&gt;
- &amp;amp; = n\ (m\ Succ)\ 0 \\
+ &amp;amp; = n\ (m\ Succ)\ 0 &amp;amp;&amp;amp;  \text{(by notation \eqref{n1})}\\
  &amp;amp; = (n\ \circ\ m)\ Succ\ 0 &amp;amp;&amp;amp; \text{(using \eqref{7} definition of Composition operator)} \\
  &amp;amp; = (n\ \circ\ m) &amp;amp;&amp;amp; \text{(using \eqref{6} ‘m Succ 0 = m')} 
 \end{align}$$&lt;/p&gt;
@@ -252,7 +252,51 @@ Power\ (Power\ n\ m)\ l \equiv Power\ n\ (Mult\ m\ l) \label{15} \tag{15} &lt;br
 {(n^m)^l = n^{m\ \times\ l}}
 $$&lt;/p&gt;
 
-&lt;p&gt;Everything is making sense!! :D&lt;/p&gt;</content:encoded></item><item><title>An introduction to functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
+&lt;p&gt;Everything is making sense!! :D&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id="letsdosameinhaskellinteractiveshell"&gt;Let's do same in Haskell interactive shell&lt;/h3&gt;
+
+&lt;p&gt;Launch &lt;code&gt;ghci&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Here in shell, we'll define arithmetical operations given by above definitions and do computations using them.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-haskell"&gt;let zero f x = x  
+let succ n f x = f (n f x)
+
+let one = succ zero  
+let two = succ one  
+let three = succ two  
+let four = succ three
+
+let plus m n = n succ m  
+let mult m n = n . m  
+let power m n = n m
+
+let convert n = n (+ 1) 0  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We've defined &lt;code&gt;convert&lt;/code&gt; function to convert church numeral (which is a function) to number so that we can confirm our computation.&lt;/p&gt;
+
+&lt;p&gt;Let's do some computations using defined functions. (in &lt;code&gt;ghci&lt;/code&gt; shell)  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code class="language-haskell"&gt;Prelude&amp;gt; convert (plus two three)   -- 2 + 3  
+5  
+Prelude&amp;gt; convert (mult two three)   -- 2 x 3  
+6  
+Prelude&amp;gt; convert (power two three)  -- 2 ^ 3  
+8
+
+Prelude&amp;gt; convert (four . three)     -- 3 x 4  
+12  
+Prelude&amp;gt; convert (two three)        -- 3 ^ 2  
+9  
+Prelude&amp;gt; convert (three two two)    -- 2 ^ (2 ^ 3)  
+256  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So we saw that, arithmetic operations can be defined in untyped Lambda Calculus without using any prior definition if natural numbers are treated as Church numerals.&lt;/p&gt;</content:encoded></item><item><title>An introduction to functional programming</title><description>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
 &lt;p&gt;There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another&lt;/p&gt;</description><link>http://0.0.0.0:2368/yet-another-intro-to-functional-programming/</link><guid isPermaLink="false">ff1d4b87-f651-46c8-91ce-6aa7295a8169</guid><category>Functional programming</category><category>Haskell</category><category>Algebraic data types</category><category>Pattern matching</category><category>Generics</category><dc:creator>Shubham Jain</dc:creator><pubDate>Sun, 16 Aug 2015 11:08:00 GMT</pubDate><content:encoded>&lt;p&gt;There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!&lt;/p&gt;
 
