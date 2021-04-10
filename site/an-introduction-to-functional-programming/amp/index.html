@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>An introduction to functional programming</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="The Last Infinity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="An introduction to functional programming" />
+    <meta property="og:description" content="There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!  There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another" />
+    <meta property="og:url" content="http://localhost:8080/an-introduction-to-functional-programming/" />
+    <meta property="article:published_time" content="2015-08-16T00:00:00.000Z" />
+    <meta property="article:modified_time" content="2021-04-07T03:22:22.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="An introduction to functional programming" />
+    <meta name="twitter:description" content="There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!  There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another" />
+    <meta name="twitter:url" content="http://localhost:8080/an-introduction-to-functional-programming/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Shubham Jain" />
+    <meta name="twitter:site" content="@shhaumb" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "The Last Infinity",
+        "url": "http://localhost:8080/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://localhost:8080/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shubham Jain",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/6c67fa1ad49dda4a129d920273b39b03?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:8080/author/shubham/",
+        "sameAs": []
+    },
+    "headline": "An introduction to functional programming",
+    "url": "http://localhost:8080/an-introduction-to-functional-programming/",
+    "datePublished": "2015-08-16T00:00:00.000Z",
+    "dateModified": "2021-04-07T03:22:22.000Z",
+    "description": "There are plenty of other tutorials and posts on functional programming. This\npost takes an approach to give the underlying theory behind it. I hope you find\nit enlightening!\n\nThere are two major sets of programming languages which call themselves to be\nfollowing functional paradigm. One is LISP-style and another is ML-style. There\nare many similarities but still quite differences between these two sets of\nlanguages. In this post, I&#x27;ll be talking about the later one. The programming\nlanguages wh",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:8080/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 4.1" />
+    <link rel="alternate" type="application/rss+xml" title="The Last Infinity" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: var(--ghost-accent-color, #1292EE);
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: var(--ghost-accent-color, #1292EE);
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #15171a;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+
+    :root {--ghost-accent-color: #ff772e;}
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                The Last Infinity
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">An introduction to functional programming</h1>
+                <section class="post-meta">
+                    Shubham Jain -
+                    <time class="post-date" datetime="2015-08-16">16 Aug 2015</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p>There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!</p>
+<p>There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another is ML-style. There are many similarities but still quite differences between these two sets of languages. In this post, I'll be talking about the later one. The programming languages which come under ML-style are ML, OCaml, Haskell, Scala, Rust etc. I'll be using Haskell for demonstration because of it's style of purity.</p>
+<p>Let's start!</p>
+<h2 id="what-is-term">What is Term?</h2>
+<p>Informally saying a term can be anything like</p>
+<pre><code class="language-haskell">12                -- integer
+'a'               -- char
+3 + 8             -- sum of two integers
+[1, 2, 3, 4]      -- list of integers
+Int               -- a type
+"Hello World!"    -- string
+String            -- another type
+</code></pre>
+<p>It can be <strong>Data</strong> or <strong>Type</strong>. I just gave these examples so that you can relate the known entities to this thing that I am introducing. But before a formal introduction of <strong>Term</strong> you need to understand what <strong>Application</strong> is. There is application between <code>f</code> and <code>x</code> when you write <code>f(x)</code> in any imperative language e.g. c++, Java etc. Yes, you see it right, it's <strong>Function application</strong>, but here <strong>Application</strong> is not limited to function application only, It's more fundamental than this as you will see. The syntax for <strong>Application</strong> in Haskell is</p>
+<pre><code class="language-haskell">f x
+</code></pre>
+<p>Yes, no parenthesis at all! You can argue why such syntax is used, just wait and you will see a lot of generality is achieved by using such syntax. Now let me introduce one rule for construction of <strong>Term</strong> that is <em>if <code>a</code> is a term and <code>b</code> is a term then <code>a b</code> is also a term (* conditions apply)</em>. I'll tell you about those conditions later in this post. For now, I can give you only this information about terms till we get to the end of <strong>Computation</strong> section.</p>
+<h2 id="what-is-arity">What is Arity?</h2>
+<p><strong>Arity</strong> is the number of arguments or operands a function takes e.g. the addition function <code>add</code> has arity 2 which can be defined in Python by</p>
+<pre><code class="language-python">def add(x, y):
+    return x + y
+</code></pre>
+<p>In functional programming, not only functions but all terms have arity (zero or greater) since all functions are terms too. When constructing a term with <strong>Application</strong> the former term must have a non-zero arity i.e. in term <code>f x</code>, term <code>f</code> must have a non-zero arity.</p>
+<p>In Haskell, all terms have arity of either zero or one and so all functions. Now you must be asking how functions with arity greater then one will be applied to its operands e.g. the <code>add</code> function defined above in python. Here comes the concept of <strong>Currying</strong>. Functions are <strong>"first class values"</strong> so functions may be used as the inputs, or be returned as output from other functions. Functions taking or returning functions are called <strong>"Higher order functions"</strong>. Function calling in imperative languages e.g. <code>add(x, y)</code> can be written as <code>add x y</code> in Haskell and since application is <a href="https://en.wikipedia.org/wiki/Operator_associativity">left-assosiative</a>, the term <code>add x y</code> should be taken as <code>(add x) y</code>. That means the <code>add</code> function applies to first argument <code>x</code> which returns another function which again takes the argument <code>y</code> and then returns the addition <code>x + y</code>. This is called <strong>Currying</strong>. The same <code>add</code> function can be defined in Python using currying style by</p>
+<pre><code class="language-python">def add(x):
+    def add_inner(y):
+        return x + y
+    return add_inner
+</code></pre>
+<p>The currying version of calling <code>add</code> function in Python would be <code>add(3)(4)</code> which is equivalent to <code>add 3 4</code> in Haskell.</p>
+<h2 id="computation">Computation</h2>
+<p>In start of section <strong>What is Term?</strong> I gave you some examples of term. Which examples do you find to be reducible to another term (able to change into a term with simpler form) ?</p>
+<p>Only one example, <code>3 + 8</code>, which is reducible to term <code>11</code>. And <em>reduction is the key to computation</em>.</p>
+<p>You just give computer a term and it reduces that term to the level where it can not be reduced further. This is the ideal philosophy of computation in functional programming. So there can be terms which can't be reduced further (all other terms in the example). Different kind of models can be made to specify the rules of reductions into a language. The ML-style functional programming languages follow a constructive model containing following rules:</p>
+<ol>
+<li>
+<p>A term is reducible or non-reducible. If it's non-reducible then it is said to be in its <strong>normal form</strong>.</p>
+</li>
+<li>
+<p>A term can be either in <strong>application</strong> form or not. Recall that the term <code>a b</code> is in <strong>application</strong> form. Reducibility of a term in application form <code>a b</code>, depends only on first term <code>a</code>. And the term <code>a</code> can be either a <strong>function</strong> or a <strong>constructor</strong>.</p>
+</li>
+<li>
+<p>If <code>a</code> is a <strong>function</strong> of non-zero arity, then <code>a b</code> is reducible, hence term <code>a b</code> is not in normal form. (Functions having zero arity i.e. functions which take no argument are used for computations with <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side effects</a> only. A function having no side effect is called a <a href="https://en.wikipedia.org/wiki/Pure_function">pure function</a> and I'll talk about them only in this article.)</p>
+</li>
+<li>
+<p>Else if <code>a</code> is a <strong>constructor</strong> of non-zero arity, then <code>a b</code> is not reducible. And <code>a b</code> is in its normal form.</p>
+</li>
+<li>
+<p>A <strong>constructor</strong> of zero arity is non-reducible hence in normal form. It's also called a <strong>nullary constructor</strong> or <strong>constant</strong>.</p>
+</li>
+</ol>
+<h2 id="constructorfunction Object() { [native code] }1">Constructor</h2>
+<p>Constructors in functional programming is totally a different concept than what constructors are in any imperative language like C++ or Python. From the last section, we can fetch the definition of <strong>Constructor</strong>. A constructor is a term that is always in its normal form and it can never be reduced further. Either it has zero arity that means it's a constant term and no other term can be applied to it, or it has arity greater than zero and new terms can be made by the application of itself and other terms. The new term made through the application of a constructor and another term is also in its normal form.</p>
+<h2 id="data-and-types">Data and Types</h2>
+<p>The term is <strong>leveled</strong> into many categories called <strong>Data</strong>, <strong>Type</strong>, <strong>Type of types</strong> (a.k.a. <strong>Kind</strong> in Haskell) and so on. In some programming languages, there are only two levels, data and type e.g. <code>4</code> is data and <code>int</code> is its type in <strong>C</strong> programming language. In Haskell, there are three levels of terms upto Kinds. In some programming languages, the levels are collapsed into single level e.g. in Python everything (data or type) is an object and treated equally. In functional programming, <strong>"every term has type"</strong> and the term representing the type of a term belong to the next level w.r.t. the level of that term. As of now in Haskell, you can deal with only type of data and type of types (which are kinds) not further. Constructors and functions also belong to these levels since they are terms. If a constructor is used to construct some data then it's called <strong>Data constructor</strong> otherwise if it is used to construct a type then it's called <strong>Type constructor</strong>. Haskell has full support for data level functions and some recent support for type level functions. There is one rule regarding levels while constructing a term using <strong>application</strong> that is <em>term <code>a b</code> can be constructed from terms <code>a</code> and <code>b</code> only if <code>a</code> &amp; <code>b</code> both belong to same level. Then the term <code>a b</code> belongs to same level too.</em></p>
+<h2 id="algebraic-data-types">Algebraic data types</h2>
+<p>A program in Haskell, contains all the declarations or definitions of constructors and functions. Since all terms have types, a particular type term can belong to some data terms which can be constructed with some data constructors only. It is done using <strong>Data declaration</strong> in which the programmer specifies the type constructor and all the data constructors which can be used to construct a data for that type. The type and data constructors may have zero or more arguments. Data declaration starts with keyword <code>data</code>. Here's an example of data declaration of <code>Bool</code> type which is defined in the standard library</p>
+<pre><code class="language-haskell">data Bool = True | False
+</code></pre>
+<p>In data declaration, the part which comes after <code>data</code> and before <code>=</code> specifies the type constructor and parts which come after <code>=</code> and are separated by <code>|</code> symbol, specifies the data constructors which can be used to construct the data terms of that type. The <code>|</code> should be read as "or". In this example, the type constructor <code>Bool</code> is a nullary type constructor with two nullary data constructors <code>True</code> and <code>False</code> which behave like constants. A variable having <code>Bool</code> value can be declared with following syntax.</p>
+<pre><code class="language-haskell">x :: Bool   -- It tells the compiler that x has type `Bool`
+x = True    -- Here the data `True` of type `Bool` has been bound to x
+</code></pre>
+<p>There's no need of first statement in above example that is type declaration of variable <code>x</code>. Haskell can infer it's type by seeing second statement of assignment. I wrote it just to keep things clarified.</p>
+<p>Here is another example to define Color type whose data has information of values of all three color components Red, Green and Blue.</p>
+<pre><code class="language-haskell">data Color = RGBColor Int Int Int     -- declaring the Color type
+
+gray :: Color
+gray = RGBColor 128 128 128
+</code></pre>
+<p>In this example, the type <code>Color</code> has only one data constructor <code>RGBColor</code> and <code>RGBColor Int Int Int</code> in data declaration means it can have 3 integer arguments to carry values of red, green and blue.</p>
+<p>These types are called <strong>Algebraic data types</strong> because these types follow similar operations to algebraic operations <strong>sums</strong> and <strong>products</strong> while defining their data constructors. The <code>Bool</code> type's data constructors <code>True</code>, <code>False</code> were written in <strong>sum form</strong> (<strong>sum</strong> means "or" here) while the <code>Color</code>'s data constructor <code>RGBColor</code> was written in <strong>product form</strong> in which it takes 3 integer values which can be perceived as product of 3 integers (<strong>product</strong> means "combination" here). Here's an example of data type which has both sum and product form in its data constructors.</p>
+<pre><code class="language-haskell">data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+</code></pre>
+<p>And different shapes can be defined by</p>
+<pre><code class="language-haskell">circle :: Shape
+rect :: Shape
+
+circle = Circle 1 1 0.5    -- Circle centered at (1,1) with radius 0.5
+rect = Rectangle 4 5 3 2   -- Rectangle centered at (4,5) with width = 3 and height = 2
+</code></pre>
+<p>You can see here how variables of type <code>Shape</code> can have value in either of two forms or variants with data constructors 'Circle' and 'Rectangle'. In this way, algebraic data types provide a more general model of relation between type and data than the model given by object oriented languages through relation between class and instances.</p>
+<p>Let's define data type for natural numbers. A natural number is one of the values in {0,1,2,3...} .  If we recall the <a href="https://en.wikipedia.org/wiki/Peano_axioms"><strong>Peano axioms</strong></a> then its two axioms state following:</p>
+<ol>
+<li>0 is a natural number.</li>
+<li>For every natural number n, successor of n i.e. (S n) is a natural number.</li>
+</ol>
+<p>So we use above axioms to construct natural number.</p>
+<pre><code class="language-haskell">data Nat = Zero | Succ Nat
+</code></pre>
+<p>It's a recursive definition as the second data constructor <code>Succ</code> (read as "successor of") takes an argument of same type <code>Nat</code>. A data type defined in recursive way is called <strong>Recursive or Inductive data type</strong>. Here's how you define some initial natural numbers using this scheme.</p>
+<pre><code class="language-haskell">one :: Nat
+one = Succ Zero
+
+two :: Nat
+two = Succ (Succ Zero)
+
+three :: Nat
+three :: Succ (Succ (Succ Zero))
+
+-- And so on...
+</code></pre>
+<h2 id="functions">Functions</h2>
+<p>A function takes an argument and returns a result. Let's define a function that takes an integer and returns the square of it.</p>
+<pre><code class="language-haskell">square :: Int -&gt; Int   -- the type declaration of square function
+square x = x * x       -- the function definition of square
+
+y = square 5           -- function square is being called/reduced here. `y` stores 25
+</code></pre>
+<p>We have a new syntax in the type of function <code>square</code>. The type <code>Int -&gt; Int</code> tells that any term having this type takes an integer and returns an integer. Before going ahead, let me tell you the most important rule of application that is</p>
+<blockquote>
+<p>Term <code>a</code> can be applied to term <code>b</code> of type <code>B</code> if and only if <code>a</code> has type <code>B -&gt; C</code> where <code>C</code> can be any other arbitrary type. Then the type of term <code>a b</code> would be <code>C</code>. (The term <code>a</code> can be a function or a constructor as well)</p>
+</blockquote>
+<p>Lets define the currying version of <code>add</code> function in Haskell that I defined earlier in Python.</p>
+<pre><code class="language-haskell">add :: Int -&gt; Int -&gt; Int
+add x y = x + y
+
+w = add 7 8  -- w stores 15
+
+f = add 3    -- f is a partial function having type `Int -&gt; Int`
+z = f 5      -- z stores 8
+</code></pre>
+<p>Now you must be asking how terms like <code>x * x</code> or <code>x + y</code> get reduced further. It's because the operators <code>*</code> and <code>+</code> are infix operators hence any term in form <code>a + b</code> is taken as <code>(+) a b</code> by compiler. And <code>(+)</code> and <code>(*)</code> are actual functions which with 2 arguments get reduced to a number. In fact <code>-&gt;</code> is an infix operator too which is actually a type constructor. Hence type <code>A -&gt; B</code> can be taken as <code>(-&gt;) A B</code>.</p>
+<p>The operator <code>-&gt;</code> is right associative hence the type of function <code>add</code> should be taken as <code>Int -&gt; (Int -&gt; Int)</code> in infix notation. Now it should be clear why the type of term <code>f</code> is <code>Int -&gt; Int</code>. And since the term <code>add 7 8</code> is taken as <code>(add 7) 8</code>, the same partial function is made while evaluating <code>add 7</code> and then it gets applied to <code>8</code> and returns <code>15</code>. This is how currying works.</p>
+<p>Constructor terms also have types just like functions. The type of constructors can be infered from the data declaration. Hence in declaring <code>Nat</code> type by data declaration</p>
+<pre><code class="language-haskell">data Nat = Zero | succ Nat
+</code></pre>
+<p>The constructors <code>Zero</code> and <code>Succ</code> are understood as</p>
+<ol>
+<li><code>Zero</code> takes no other term for application and already of type <code>Nat</code>. That is to say <code>Zero :: Nat</code>.</li>
+<li><code>Succ</code> takes a term of type <code>Nat</code> and returns a <code>Nat</code>. Hence its type should be <code>Nat -&gt; Nat</code>.</li>
+</ol>
+<h2 id="pattern-matching">Pattern matching</h2>
+<p><strong>Pattern matching</strong> is a concept which can't be avoided when a programming language has the feature of algebraic data types. This concept is used with function definitions. A function is a term that takes data of particular type and returns data of another type but if the input data can have multiple variant forms due to different data constructors given in data declaration of that input type then that function has to deal will each variant of that type separately while defining its own definition.</p>
+<blockquote>
+<p>The rule of pattern matching is simple one that any argument to a function should be a variable or one of the variant forms for the input type. And each definition of that function is checked for pattern matching from top to bottom until one matches.</p>
+</blockquote>
+<p>For example, the <code>not</code> boolean operator can be defined by pattern matching in following way</p>
+<pre><code class="language-haskell">not :: Bool -&gt; Bool
+
+not True  = False
+not False = True
+
+x = not False    -- `not False` matches with the second definition
+                 -- of `not` and hence reduces to `True`
+</code></pre>
+<p>Let's define the add function for <code>Nat</code> data type that we defined earlier using pattern matching.</p>
+<pre><code class="language-haskell">add_nat :: Nat -&gt; Nat -&gt; Nat
+
+add_nat Zero y      = y
+add_nat (Succ x) y  = add_nat x (Succ y)    -- it's a recursive definition 
+
+-- lets's add 2 and 1 and store it in x
+x = add_nat (Succ (Succ Zero)) (Succ Zero)  
+
+-- add_nat (Succ (Succ Zero)) (Succ Zero) reduces in following steps
+
+-- add_nat (Succ (Succ Zero)) (Succ Zero)
+-- add_nat (Succ Zero) (Succ (Succ Zero))    -- using second definition
+-- add_nat Zero (Succ (Succ (Succ Zero)))    -- using second definition
+-- (Succ (Succ (Succ Zero)))                 -- using first definition
+
+-- which is nothing but 3
+</code></pre>
+<h2 id="generics">Generics</h2>
+<p>Till now, the above examples introduced data declarations of nullary type constructors only e.g. <code>Bool</code>, <code>Color</code>, <code>Shape</code> and <code>Nat</code>. These nullary types are also called <strong>concrete types</strong>. Since every term has type, what is the type (or I should say kind) of all concrete types? Answer is <code>*</code>. What! a star? Yes, the <code>*</code> is the type (kind) of all concrete types and this term belongs to the <strong>Kind</strong> level.</p>
+<p>What would be the type constructors with arity greater than zero? Let's define such a type</p>
+<pre><code class="language-haskell">data List a = Nil | Cons a (List a)
+</code></pre>
+<p>Here's what you infer from this data declaration:</p>
+<ol>
+<li><code>List a</code> is a concrete type for some concrete type <code>a</code>. Hence type (kind) of term <code>List</code> would be <code>* -&gt; *</code>. Here, the type constructor <code>List</code> is not a concrete type. The variable type term <code>a</code> can be replaced by any concrete type term in <code>List a</code> to construct a list type e.g. <code>List Int</code>, <code>List Bool</code>, <code>List Nat</code> or even <code>List (List Int)</code>.</li>
+<li><code>Nil :: List a</code></li>
+<li><code>Cons :: a -&gt; (List a) -&gt; (List a)</code></li>
+</ol>
+<p>Here's how you make a term of type <code>List Int</code>:</p>
+<pre><code class="language-haskell">list_of_integers :: List Int
+list_of_integers = Cons 1 (Cons 4 (Cons 5 Nil))
+</code></pre>
+<p>If you know C++, then you know about template classes and functions. Or in Java, you'll be familiar with generics in it. In C++ or Java, a similar declaration of a variable of type 'list of integers' would be</p>
+<pre><code class="language-cpp">list&lt;int&gt; list_of_integers;
+</code></pre>
+<p>Actually there is no such type <code>list</code> in C++ or Java. Instead there is a <code>vector</code> class. I used it just for analogy.</p>
+<p>Here you can see that <code>list&lt;int&gt;</code> in C++ or Java is nothing but a type level application between terms <code>list</code> and <code>int</code>, which is just <code>list int</code> in Haskell.</p>
+<p>In Haskell, there is already a pre-defined list type with different symbols used for constructors <code>List</code>, <code>Nil</code> and <code>Cons</code> in our example. Those are</p>
+<ol>
+<li>In type level, <code>([])</code> is type constructor. Hence <code>[Int]</code>, <code>[Bool]</code> are concrete types. <code>[a]</code> is syntactic sugar for <code>([]) a</code>. Hence <code>[Int]</code> is actually <code>([]) Int</code>.</li>
+<li>In data level, <code>[]</code> is <code>Nil</code> data constructor. Haskell can distinguish the role of <code>[]</code> because it knows where it is being used, in type level or data level.</li>
+<li>The data constructor <code>(:)</code> is replacement for <code>Cons</code>. <code>(:)</code> is an infix operator and is right associative.</li>
+</ol>
+<p>Hence a variable term of type <code>[Int]</code> can be defined in Haskell by</p>
+<pre><code class="language-haskell">list_of_ints :: [Int]
+list_of_ints = 1:4:5:[]
+</code></pre>
+<p>There's another syntactic sugar for <code>a:b:c:d:[]</code> in Haskell, that is <code>[a, b, c, d]</code>. So above list assignment can be written simply</p>
+<pre><code class="language-haskell">list_of_ints :: [Int]
+list_of_ints = [1, 4, 5]
+</code></pre>
+<p>So now you know what magics Haskell is doing when you write a list in notation <code>[a, b, c, .. g, h]</code>.</p>
+<p>There's a lot more to be told about functional programming but I am afraid that the post has already gone long, so here I conclude it. The functional programming has its roots in <a href="https://en.wikipedia.org/wiki/Lambda_calculus">Lambda calculus</a> which is a mathematical framework for computation and <a href="https://en.wikipedia.org/wiki/Type_theory">Type theory</a>. I have borrowed many concepts from these theories into this post, still many things are left as they can not be covered in a single post. In future I'll be writing on them, so stay tuned!</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>The Last Infinity</h3>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

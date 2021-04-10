@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>An introduction to functional programming</title>
+    <link rel="stylesheet" href="../assets/built/screen.css@v=698f1f05d3.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,700;0,800;1,400;1,700&display=swap">
+
+    <script>
+        var siteUrl = 'http://localhost:8080';
+    </script>
+
+    <script>
+        var localTheme = localStorage.getItem('dawn_theme');
+        switch (localTheme) {
+            case 'dark':
+                document.documentElement.classList.add('theme-dark');
+                break;
+            case 'light':
+                document.documentElement.classList.add('theme-light');
+                break;
+            default:
+                break;
+        }
+    </script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="The Last Infinity" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="An introduction to functional programming" />
+    <meta property="og:description" content="There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!  There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another" />
+    <meta property="og:url" content="http://localhost:8080/an-introduction-to-functional-programming/" />
+    <meta property="article:published_time" content="2015-08-16T00:00:00.000Z" />
+    <meta property="article:modified_time" content="2021-04-07T03:22:22.000Z" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="An introduction to functional programming" />
+    <meta name="twitter:description" content="There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!  There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another" />
+    <meta name="twitter:url" content="http://localhost:8080/an-introduction-to-functional-programming/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Shubham Jain" />
+    <meta name="twitter:site" content="@shhaumb" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "The Last Infinity",
+        "url": "http://localhost:8080/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "http://localhost:8080/favicon.ico"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Shubham Jain",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/6c67fa1ad49dda4a129d920273b39b03?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "http://localhost:8080/author/shubham/",
+        "sameAs": []
+    },
+    "headline": "An introduction to functional programming",
+    "url": "http://localhost:8080/an-introduction-to-functional-programming/",
+    "datePublished": "2015-08-16T00:00:00.000Z",
+    "dateModified": "2021-04-07T03:22:22.000Z",
+    "description": "There are plenty of other tutorials and posts on functional programming. This\npost takes an approach to give the underlying theory behind it. I hope you find\nit enlightening!\n\nThere are two major sets of programming languages which call themselves to be\nfollowing functional paradigm. One is LISP-style and another is ML-style. There\nare many similarities but still quite differences between these two sets of\nlanguages. In this post, I&#x27;ll be talking about the later one. The programming\nlanguages wh",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:8080/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 4.1" />
+    <link rel="alternate" type="application/rss+xml" title="The Last Infinity" href="../rss/index.html" />
+    <script defer src="https://unpkg.com/@tryghost/portal@~1.0.0/umd/portal.min.js" data-ghost="http://localhost:8080/"></script><style> .gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" />
+
+<style>
+    .post-content, .single-content {
+        font-size: 1.7rem;
+        letter-spacing: 0.4px;
+        line-height: 1.6;
+    }
+    .no-line-numbers pre .lines, .post-content pre .lines {
+    	display: none;
+    }
+    .post-content pre code {
+    	margin: 0;
+        padding: 0;
+        font-family: Inconsolata, monospace, sans-serif;
+    }
+    code[class*=language-], pre[class*=language-] {
+    	font-size: 14px;
+        line-height: 1.6;
+    }
+    pre[class*=language-] {
+        margin: 0.5rem 0 2.5rem 0;
+    }
+    .post-content h2, .single-content h2, .post-content h3, .single-contenth2 h3 {
+        margin-top: 2rem !important;
+    	margin-bottom: 3rem !important;
+        font-size: 2.5rem;
+    }
+    p, ul, ol, dl, blockquote {
+    	margin: 0 0 1.6rem 0 !important;
+	}
+    blockquote {
+        box-sizing: border-box;
+    	margin: 1.6em 0 1.6em;
+    	padding: 0.2em 1.6em;
+        text-align: left;
+        color: inherit;
+        font-size: inherit;
+        font-weight: 500;
+    }
+    .theme-light blockquote {
+    	background-color: #fff;
+    }
+    blockquote p {
+    	margin: 0.8em 0 !important;
+    	font-style: italic;
+        text-align: justify;
+	}
+</style>
+<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({tex2jax: {inlineMath: [['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script><style>:root {--ghost-accent-color: #ff772e;}</style>
+</head>
+
+<body class="post-template">
+    <svg width="0" height="0" style="display: none;">
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="arrow-left">
+        <path d="M26.667 14.667v2.667h-16L18 24.667l-1.893 1.893L5.547 16l10.56-10.56L18 7.333l-7.333 7.333h16z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="arrow-right">
+        <path d="M5.333 14.667v2.667h16L14 24.667l1.893 1.893L26.453 16 15.893 5.44 14 7.333l7.333 7.333h-16z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="brightness-2">
+        <path
+            d="M13.333 2.667c-2.427 0-4.707.667-6.667 1.8 4 2.307 6.667 6.6 6.667 11.533s-2.667 9.227-6.667 11.533c1.96 1.133 4.24 1.8 6.667 1.8 7.36 0 13.333-5.973 13.333-13.333S20.693 2.667 13.333 2.667z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="chevron-left">
+        <path d="M20.547 22.107L14.44 16l6.107-6.12L18.667 8l-8 8 8 8 1.88-1.893z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="chevron-right">
+        <path d="M11.453 22.107L17.56 16l-6.107-6.12L13.333 8l8 8-8 8-1.88-1.893z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="circle-half-full">
+        <path
+            d="M16 2.667c-7.36 0-13.333 5.973-13.333 13.333s5.973 13.333 13.333 13.333c7.36 0 13.333-5.973 13.333-13.333s-5.973-13.333-13.333-13.333zM16 5.333c5.893 0 10.667 4.773 10.667 10.667s-4.773 10.667-10.667 10.667v-21.333z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="dots-horizontal">
+        <path
+            d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="facebook-box">
+        <path
+            d="M6.667 4h18.667c1.467 0 2.667 1.2 2.667 2.667v18.667c0 1.467-1.2 2.667-2.667 2.667H6.667A2.675 2.675 0 0 1 4 25.334V6.667C4 5.2 5.2 4 6.667 4zM24 6.667h-3.333A4.672 4.672 0 0 0 16 11.334v3.333h-2.667v4H16V28h4v-9.333h4v-4h-4V12c0-.733.6-1.333 1.333-1.333H24v-4z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="facebook">
+        <path
+            d="M22.667 2.667V8H20c-.92 0-1.333 1.08-1.333 2v3.333h4v5.333h-4v10.667h-5.333V18.666h-4v-5.333h4V8a5.332 5.332 0 0 1 5.333-5.333h4z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="linkedin">
+        <path
+            d="M25.333 4c1.473 0 2.667 1.194 2.667 2.667v0 18.667c0 1.473-1.194 2.667-2.667 2.667v0h-18.667c-1.473 0-2.667-1.194-2.667-2.667v0-18.667c0-1.473 1.194-2.667 2.667-2.667v0h18.667zM24.667 24.667v-7.067c0-2.401-1.946-4.347-4.347-4.347v0c-1.133 0-2.453 0.693-3.093 1.733v-1.48h-3.72v11.16h3.72v-6.573c0-1.027 0.827-1.867 1.853-1.867 1.031 0 1.867 0.836 1.867 1.867v0 6.573h3.72zM9.173 11.413c1.237 0 2.24-1.003 2.24-2.24v0c0-1.24-1-2.253-2.24-2.253-1.244 0-2.253 1.009-2.253 2.253v0c0 1.24 1.013 2.24 2.253 2.24zM11.027 24.667v-11.16h-3.693v11.16h3.693z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" id="loader">
+        <path opacity="0.3" fill="currentColor"
+            d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
+        <path fill="currentColor"
+            d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0 C22.32,8.481,24.301,9.057,26.013,10.047z">
+            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20"
+                dur="0.5s" repeatCount="indefinite" />
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="magnify">
+        <path
+            d="M12.667 4a8.667 8.667 0 0 1 8.667 8.667c0 2.147-.787 4.12-2.08 5.64l.36.36h1.053l6.667 6.667-2 2-6.667-6.667v-1.053l-.36-.36a8.689 8.689 0 0 1-5.64 2.08C7.88 21.334 4 17.454 4 12.667S7.88 4 12.667 4zm0 2.667c-3.333 0-6 2.667-6 6s2.667 6 6 6 6-2.667 6-6-2.667-6-6-6z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="menu-down">
+        <path d="M9.333 13.333L16 20l6.667-6.667H9.334z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="rss-box">
+        <path
+            d="M6.667 4h18.667c1.467 0 2.667 1.2 2.667 2.667v18.667c0 1.467-1.2 2.667-2.667 2.667H6.667A2.675 2.675 0 0 1 4 25.334V6.667C4 5.2 5.2 4 6.667 4zM10 20c-1.107 0-2 .893-2 2s.893 2 2 2 2-.893 2-2-.893-2-2-2zm-2-6.667V16c4.413 0 8 3.587 8 8h2.667c0-5.893-4.773-10.667-10.667-10.667zM8 8v2.667c7.36 0 13.333 5.973 13.333 13.333H24c0-8.84-7.16-16-16-16z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="star">
+        <path
+            d="M16 23.027L24.24 28l-2.187-9.373 7.28-6.307-9.587-.827-3.747-8.827-3.747 8.827-9.587.827 7.267 6.307L7.759 28l8.24-4.973z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="table-of-contents">
+        <path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="twitter-box">
+        <path
+            d="M6.667 4h18.667c1.467 0 2.667 1.2 2.667 2.667v18.667c0 1.467-1.2 2.667-2.667 2.667H6.667A2.675 2.675 0 0 1 4 25.334V6.667C4 5.2 5.2 4 6.667 4zm16.946 8.44c.64-.533 1.387-1.173 1.72-1.88-.547.28-1.2.453-1.92.547.667-.48 1.213-1.107 1.493-1.96-.693.373-1.4.693-2.28.853-2.067-2.493-7.013-.467-6.133 3.267-3.48-.213-5.6-1.787-7.36-3.72-1 1.627-.133 4.093 1.053 4.773-.613-.04-1.08-.227-1.52-.44.053 2.053 1.187 3.04 2.773 3.573a4.47 4.47 0 0 1-1.52.04c.493 1.427 1.52 2.32 3.28 2.507-1.2 1.013-3.413 1.72-5.2 1.44 1.533.973 3.28 1.747 5.707 1.64 5.88-.267 9.813-4.48 9.907-10.64z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="twitter">
+        <path
+            d="M29.947 8a11.423 11.423 0 0 1-3.28.92 5.738 5.738 0 0 0 2.507-3.173 11.52 11.52 0 0 1-3.627 1.4C24.494 6 23.014 5.334 21.334 5.334c-3.133 0-5.693 2.56-5.693 5.72 0 .453.053.893.147 1.307A16.261 16.261 0 0 1 4.001 6.388a5.663 5.663 0 0 0-.773 2.867c0 1.987 1 3.747 2.547 4.747-.947 0-1.827-.267-2.6-.667v.04a5.724 5.724 0 0 0 4.587 5.613 5.644 5.644 0 0 1-2.574.093c.72 2.253 2.813 3.933 5.333 3.973-1.947 1.547-4.413 2.453-7.107 2.453-.453 0-.907-.027-1.36-.08A16.19 16.19 0 0 0 10.827 28c10.507 0 16.28-8.72 16.28-16.28 0-.253 0-.493-.013-.747A11.42 11.42 0 0 0 29.947 8z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="white-balance-sunny">
+        <path
+            d="M4.733 24.72l1.88 1.88 2.4-2.387L7.12 22.32zm9.934 5.213h2.667V26h-2.667zM16 7.333c-4.413 0-8 3.587-8 8s3.587 8 8 8 8-3.587 8-8c0-4.427-3.587-8-8-8zm10.667 9.334h4V14h-4zm-3.68 7.546l2.4 2.387 1.88-1.88-2.387-2.4zm4.28-18.266l-1.88-1.88-2.4 2.387 1.893 1.893zM17.333.733h-2.667v3.933h2.667zM5.333 14h-4v2.667h4zm3.68-7.547l-2.4-2.387-1.88 1.88 2.387 2.4 1.893-1.893z">
+        </path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="window-close">
+        <path
+            d="M17.947 16l7.387 7.387v1.947h-1.947L16 17.947l-7.387 7.387H6.666v-1.947L14.053 16 6.666 8.613V6.666h1.947L16 14.053l7.387-7.387h1.947v1.947L17.947 16z">
+        </path>
+    </symbol>
+</svg>
+    <div class="site">
+        <header class="site-header container">
+    <div class="header-left">
+        <a class="logo" href="../index.html">
+                <span class="logo-text">The Last Infinity</span>
+        </a>
+    </div>
+        <nav class="main-nav hidden-xs hidden-sm hidden-md">
+                <a class="menu-item menu-item-home"
+        href="../index.html">Home</a>
+    <a class="menu-item menu-item-rss"
+        href="../rss/index.html">RSS</a>
+
+            <!--button class="button-icon menu-item-button js-modal" data-modal="search" aria-label="Search">
+                <svg class="icon">
+                    <use xlink:href="#magnify"></use>
+                </svg>
+            </button-->
+        </nav>
+
+        <!--button class="button-icon hidden-lg hidden-xl js-modal" data-modal="search" aria-label="Search">
+            <svg class="icon">
+                <use xlink:href="#magnify"></use>
+            </svg>
+        </button-->
+        <div class="burger hidden-lg hidden-xl">
+            <div class="burger-bar"></div>
+            <div class="burger-bar"></div>
+        </div>
+
+        <!--div class="mobile-menu hidden-lg hidden-xl">
+            <div class="container">
+                <nav class="mobile-nav">
+                        <a class="menu-item menu-item-home"
+        href="http://localhost:8080/">Home</a>
+    <a class="menu-item menu-item-rss"
+        href="http://localhost:8080/rss/">RSS</a>
+
+                        <button class="button-text menu-item members-login" data-portal="signin">Login</button>
+                        <button class="button-text menu-item menu-item-cta members-subscribe" data-portal="signup">Subscribe</button>
+                </nav>
+            </div>
+        </div-->
+    <!--div class="header-right hidden-xs hidden-sm hidden-md">
+            <button class="button-text menu-item members-login" data-portal="signin">Login</button>
+            <button class="button-text menu-item menu-item-cta members-subscribe" data-portal="signup">Subscribe</button>
+    </div-->
+</header>
+
+        <header class="sticky">
+            <div class="sticky-title">An introduction to functional programming</div>
+            <button class="button-icon sticky-toc-button" aria-label="Table of Contents">
+                <svg class="icon">
+                    <use xlink:href="#table-of-contents"></use>
+                </svg>
+                <div class="sticky-toc"></div>
+            </button>
+            <div class="sticky-track">
+                <div class="sticky-progress"></div>
+            </div>
+        </header>
+        <div class="site-content">
+            
+<div class="content-area">
+    <main class="site-main">
+            <article class="single post no-image">
+    <header class="single-header kg-canvas">
+        <h1 class="single-title">An introduction to functional programming</h1>
+            <div class="single-meta">
+                <span class="single-meta-item single-meta-date">
+                    <time datetime="2015-08-16">
+                        Aug 16, 2015
+                    </time>
+                </span>
+                <span class="single-meta-item single-meta-length">
+                    12 min read
+                </span>
+            </div>
+    </header>
+    <div class="single-content kg-canvas u-text-format">
+        <!--kg-card-begin: markdown--><p>There are plenty of other tutorials and posts on functional programming. This post takes an approach to give the underlying theory behind it. I hope you find it enlightening!</p>
+<p>There are two major sets of programming languages which call themselves to be following functional paradigm. One is LISP-style and another is ML-style. There are many similarities but still quite differences between these two sets of languages. In this post, I'll be talking about the later one. The programming languages which come under ML-style are ML, OCaml, Haskell, Scala, Rust etc. I'll be using Haskell for demonstration because of it's style of purity.</p>
+<p>Let's start!</p>
+<h2 id="what-is-term">What is Term?</h2>
+<p>Informally saying a term can be anything like</p>
+<pre><code class="language-haskell">12                -- integer
+'a'               -- char
+3 + 8             -- sum of two integers
+[1, 2, 3, 4]      -- list of integers
+Int               -- a type
+&quot;Hello World!&quot;    -- string
+String            -- another type
+</code></pre>
+<p>It can be <strong>Data</strong> or <strong>Type</strong>. I just gave these examples so that you can relate the known entities to this thing that I am introducing. But before a formal introduction of <strong>Term</strong> you need to understand what <strong>Application</strong> is. There is application between <code>f</code> and <code>x</code> when you write <code>f(x)</code> in any imperative language e.g. c++, Java etc. Yes, you see it right, it's <strong>Function application</strong>, but here <strong>Application</strong> is not limited to function application only, It's more fundamental than this as you will see. The syntax for <strong>Application</strong> in Haskell is</p>
+<pre><code class="language-haskell">f x
+</code></pre>
+<p>Yes, no parenthesis at all! You can argue why such syntax is used, just wait and you will see a lot of generality is achieved by using such syntax. Now let me introduce one rule for construction of <strong>Term</strong> that is <em>if <code>a</code> is a term and <code>b</code> is a term then <code>a b</code> is also a term (* conditions apply)</em>. I'll tell you about those conditions later in this post. For now, I can give you only this information about terms till we get to the end of <strong>Computation</strong> section.</p>
+<h2 id="what-is-arity">What is Arity?</h2>
+<p><strong>Arity</strong> is the number of arguments or operands a function takes e.g. the addition function <code>add</code> has arity 2 which can be defined in Python by</p>
+<pre><code class="language-python">def add(x, y):
+    return x + y
+</code></pre>
+<p>In functional programming, not only functions but all terms have arity (zero or greater) since all functions are terms too. When constructing a term with <strong>Application</strong> the former term must have a non-zero arity i.e. in term <code>f x</code>, term <code>f</code> must have a non-zero arity.</p>
+<p>In Haskell, all terms have arity of either zero or one and so all functions. Now you must be asking how functions with arity greater then one will be applied to its operands e.g. the <code>add</code> function defined above in python. Here comes the concept of <strong>Currying</strong>. Functions are <strong>&quot;first class values&quot;</strong> so functions may be used as the inputs, or be returned as output from other functions. Functions taking or returning functions are called <strong>&quot;Higher order functions&quot;</strong>. Function calling in imperative languages e.g. <code>add(x, y)</code> can be written as <code>add x y</code> in Haskell and since application is <a href="https://en.wikipedia.org/wiki/Operator_associativity">left-assosiative</a>, the term <code>add x y</code> should be taken as <code>(add x) y</code>. That means the <code>add</code> function applies to first argument <code>x</code> which returns another function which again takes the argument <code>y</code> and then returns the addition <code>x + y</code>. This is called <strong>Currying</strong>. The same <code>add</code> function can be defined in Python using currying style by</p>
+<pre><code class="language-python">def add(x):
+    def add_inner(y):
+        return x + y
+    return add_inner
+</code></pre>
+<p>The currying version of calling <code>add</code> function in Python would be <code>add(3)(4)</code> which is equivalent to <code>add 3 4</code> in Haskell.</p>
+<h2 id="computation">Computation</h2>
+<p>In start of section <strong>What is Term?</strong> I gave you some examples of term. Which examples do you find to be reducible to another term (able to change into a term with simpler form) ?</p>
+<p>Only one example, <code>3 + 8</code>, which is reducible to term <code>11</code>. And <em>reduction is the key to computation</em>.</p>
+<p>You just give computer a term and it reduces that term to the level where it can not be reduced further. This is the ideal philosophy of computation in functional programming. So there can be terms which can't be reduced further (all other terms in the example). Different kind of models can be made to specify the rules of reductions into a language. The ML-style functional programming languages follow a constructive model containing following rules:</p>
+<ol>
+<li>
+<p>A term is reducible or non-reducible. If it's non-reducible then it is said to be in its <strong>normal form</strong>.</p>
+</li>
+<li>
+<p>A term can be either in <strong>application</strong> form or not. Recall that the term <code>a b</code> is in <strong>application</strong> form. Reducibility of a term in application form <code>a b</code>, depends only on first term <code>a</code>. And the term <code>a</code> can be either a <strong>function</strong> or a <strong>constructor</strong>.</p>
+</li>
+<li>
+<p>If <code>a</code> is a <strong>function</strong> of non-zero arity, then <code>a b</code> is reducible, hence term <code>a b</code> is not in normal form. (Functions having zero arity i.e. functions which take no argument are used for computations with <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side effects</a> only. A function having no side effect is called a <a href="https://en.wikipedia.org/wiki/Pure_function">pure function</a> and I'll talk about them only in this article.)</p>
+</li>
+<li>
+<p>Else if <code>a</code> is a <strong>constructor</strong> of non-zero arity, then <code>a b</code> is not reducible. And <code>a b</code> is in its normal form.</p>
+</li>
+<li>
+<p>A <strong>constructor</strong> of zero arity is non-reducible hence in normal form. It's also called a <strong>nullary constructor</strong> or <strong>constant</strong>.</p>
+</li>
+</ol>
+<h2 id="constructorfunction Object() { [native code] }1">Constructor</h2>
+<p>Constructors in functional programming is totally a different concept than what constructors are in any imperative language like C++ or Python. From the last section, we can fetch the definition of <strong>Constructor</strong>. A constructor is a term that is always in its normal form and it can never be reduced further. Either it has zero arity that means it's a constant term and no other term can be applied to it, or it has arity greater than zero and new terms can be made by the application of itself and other terms. The new term made through the application of a constructor and another term is also in its normal form.</p>
+<h2 id="data-and-types">Data and Types</h2>
+<p>The term is <strong>leveled</strong> into many categories called <strong>Data</strong>, <strong>Type</strong>, <strong>Type of types</strong> (a.k.a. <strong>Kind</strong> in Haskell) and so on. In some programming languages, there are only two levels, data and type e.g. <code>4</code> is data and <code>int</code> is its type in <strong>C</strong> programming language. In Haskell, there are three levels of terms upto Kinds. In some programming languages, the levels are collapsed into single level e.g. in Python everything (data or type) is an object and treated equally. In functional programming, <strong>&quot;every term has type&quot;</strong> and the term representing the type of a term belong to the next level w.r.t. the level of that term. As of now in Haskell, you can deal with only type of data and type of types (which are kinds) not further. Constructors and functions also belong to these levels since they are terms. If a constructor is used to construct some data then it's called <strong>Data constructor</strong> otherwise if it is used to construct a type then it's called <strong>Type constructor</strong>. Haskell has full support for data level functions and some recent support for type level functions. There is one rule regarding levels while constructing a term using <strong>application</strong> that is <em>term <code>a b</code> can be constructed from terms <code>a</code> and <code>b</code> only if <code>a</code> &amp; <code>b</code> both belong to same level. Then the term <code>a b</code> belongs to same level too.</em></p>
+<h2 id="algebraic-data-types">Algebraic data types</h2>
+<p>A program in Haskell, contains all the declarations or definitions of constructors and functions. Since all terms have types, a particular type term can belong to some data terms which can be constructed with some data constructors only. It is done using <strong>Data declaration</strong> in which the programmer specifies the type constructor and all the data constructors which can be used to construct a data for that type. The type and data constructors may have zero or more arguments. Data declaration starts with keyword <code>data</code>. Here's an example of data declaration of <code>Bool</code> type which is defined in the standard library</p>
+<pre><code class="language-haskell">data Bool = True | False
+</code></pre>
+<p>In data declaration, the part which comes after <code>data</code> and before <code>=</code> specifies the type constructor and parts which come after <code>=</code> and are separated by <code>|</code> symbol, specifies the data constructors which can be used to construct the data terms of that type. The <code>|</code> should be read as &quot;or&quot;. In this example, the type constructor <code>Bool</code> is a nullary type constructor with two nullary data constructors <code>True</code> and <code>False</code> which behave like constants. A variable having <code>Bool</code> value can be declared with following syntax.</p>
+<pre><code class="language-haskell">x :: Bool   -- It tells the compiler that x has type `Bool`
+x = True    -- Here the data `True` of type `Bool` has been bound to x
+</code></pre>
+<p>There's no need of first statement in above example that is type declaration of variable <code>x</code>. Haskell can infer it's type by seeing second statement of assignment. I wrote it just to keep things clarified.</p>
+<p>Here is another example to define Color type whose data has information of values of all three color components Red, Green and Blue.</p>
+<pre><code class="language-haskell">data Color = RGBColor Int Int Int     -- declaring the Color type
+
+gray :: Color
+gray = RGBColor 128 128 128
+</code></pre>
+<p>In this example, the type <code>Color</code> has only one data constructor <code>RGBColor</code> and <code>RGBColor Int Int Int</code> in data declaration means it can have 3 integer arguments to carry values of red, green and blue.</p>
+<p>These types are called <strong>Algebraic data types</strong> because these types follow similar operations to algebraic operations <strong>sums</strong> and <strong>products</strong> while defining their data constructors. The <code>Bool</code> type's data constructors <code>True</code>, <code>False</code> were written in <strong>sum form</strong> (<strong>sum</strong> means &quot;or&quot; here) while the <code>Color</code>'s data constructor <code>RGBColor</code> was written in <strong>product form</strong> in which it takes 3 integer values which can be perceived as product of 3 integers (<strong>product</strong> means &quot;combination&quot; here). Here's an example of data type which has both sum and product form in its data constructors.</p>
+<pre><code class="language-haskell">data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+</code></pre>
+<p>And different shapes can be defined by</p>
+<pre><code class="language-haskell">circle :: Shape
+rect :: Shape
+
+circle = Circle 1 1 0.5    -- Circle centered at (1,1) with radius 0.5
+rect = Rectangle 4 5 3 2   -- Rectangle centered at (4,5) with width = 3 and height = 2
+</code></pre>
+<p>You can see here how variables of type <code>Shape</code> can have value in either of two forms or variants with data constructors 'Circle' and 'Rectangle'. In this way, algebraic data types provide a more general model of relation between type and data than the model given by object oriented languages through relation between class and instances.</p>
+<p>Let's define data type for natural numbers. A natural number is one of the values in {0,1,2,3...} .  If we recall the <a href="https://en.wikipedia.org/wiki/Peano_axioms"><strong>Peano axioms</strong></a> then its two axioms state following:</p>
+<ol>
+<li>0 is a natural number.</li>
+<li>For every natural number n, successor of n i.e. (S n) is a natural number.</li>
+</ol>
+<p>So we use above axioms to construct natural number.</p>
+<pre><code class="language-haskell">data Nat = Zero | Succ Nat
+</code></pre>
+<p>It's a recursive definition as the second data constructor <code>Succ</code> (read as &quot;successor of&quot;) takes an argument of same type <code>Nat</code>. A data type defined in recursive way is called <strong>Recursive or Inductive data type</strong>. Here's how you define some initial natural numbers using this scheme.</p>
+<pre><code class="language-haskell">one :: Nat
+one = Succ Zero
+
+two :: Nat
+two = Succ (Succ Zero)
+
+three :: Nat
+three :: Succ (Succ (Succ Zero))
+
+-- And so on...
+</code></pre>
+<h2 id="functions">Functions</h2>
+<p>A function takes an argument and returns a result. Let's define a function that takes an integer and returns the square of it.</p>
+<pre><code class="language-haskell">square :: Int -&gt; Int   -- the type declaration of square function
+square x = x * x       -- the function definition of square
+
+y = square 5           -- function square is being called/reduced here. `y` stores 25
+</code></pre>
+<p>We have a new syntax in the type of function <code>square</code>. The type <code>Int -&gt; Int</code> tells that any term having this type takes an integer and returns an integer. Before going ahead, let me tell you the most important rule of application that is</p>
+<blockquote>
+<p>Term <code>a</code> can be applied to term <code>b</code> of type <code>B</code> if and only if <code>a</code> has type <code>B -&gt; C</code> where <code>C</code> can be any other arbitrary type. Then the type of term <code>a b</code> would be <code>C</code>. (The term <code>a</code> can be a function or a constructor as well)</p>
+</blockquote>
+<p>Lets define the currying version of <code>add</code> function in Haskell that I defined earlier in Python.</p>
+<pre><code class="language-haskell">add :: Int -&gt; Int -&gt; Int
+add x y = x + y
+
+w = add 7 8  -- w stores 15
+
+f = add 3    -- f is a partial function having type `Int -&gt; Int`
+z = f 5      -- z stores 8
+</code></pre>
+<p>Now you must be asking how terms like <code>x * x</code> or <code>x + y</code> get reduced further. It's because the operators <code>*</code> and <code>+</code> are infix operators hence any term in form <code>a + b</code> is taken as <code>(+) a b</code> by compiler. And <code>(+)</code> and <code>(*)</code> are actual functions which with 2 arguments get reduced to a number. In fact <code>-&gt;</code> is an infix operator too which is actually a type constructor. Hence type <code>A -&gt; B</code> can be taken as <code>(-&gt;) A B</code>.</p>
+<p>The operator <code>-&gt;</code> is right associative hence the type of function <code>add</code> should be taken as <code>Int -&gt; (Int -&gt; Int)</code> in infix notation. Now it should be clear why the type of term <code>f</code> is <code>Int -&gt; Int</code>. And since the term <code>add 7 8</code> is taken as <code>(add 7) 8</code>, the same partial function is made while evaluating <code>add 7</code> and then it gets applied to <code>8</code> and returns <code>15</code>. This is how currying works.</p>
+<p>Constructor terms also have types just like functions. The type of constructors can be infered from the data declaration. Hence in declaring <code>Nat</code> type by data declaration</p>
+<pre><code class="language-haskell">data Nat = Zero | succ Nat
+</code></pre>
+<p>The constructors <code>Zero</code> and <code>Succ</code> are understood as</p>
+<ol>
+<li><code>Zero</code> takes no other term for application and already of type <code>Nat</code>. That is to say <code>Zero :: Nat</code>.</li>
+<li><code>Succ</code> takes a term of type <code>Nat</code> and returns a <code>Nat</code>. Hence its type should be <code>Nat -&gt; Nat</code>.</li>
+</ol>
+<h2 id="pattern-matching">Pattern matching</h2>
+<p><strong>Pattern matching</strong> is a concept which can't be avoided when a programming language has the feature of algebraic data types. This concept is used with function definitions. A function is a term that takes data of particular type and returns data of another type but if the input data can have multiple variant forms due to different data constructors given in data declaration of that input type then that function has to deal will each variant of that type separately while defining its own definition.</p>
+<blockquote>
+<p>The rule of pattern matching is simple one that any argument to a function should be a variable or one of the variant forms for the input type. And each definition of that function is checked for pattern matching from top to bottom until one matches.</p>
+</blockquote>
+<p>For example, the <code>not</code> boolean operator can be defined by pattern matching in following way</p>
+<pre><code class="language-haskell">not :: Bool -&gt; Bool
+
+not True  = False
+not False = True
+
+x = not False    -- `not False` matches with the second definition
+                 -- of `not` and hence reduces to `True`
+</code></pre>
+<p>Let's define the add function for <code>Nat</code> data type that we defined earlier using pattern matching.</p>
+<pre><code class="language-haskell">add_nat :: Nat -&gt; Nat -&gt; Nat
+
+add_nat Zero y      = y
+add_nat (Succ x) y  = add_nat x (Succ y)    -- it's a recursive definition 
+
+-- lets's add 2 and 1 and store it in x
+x = add_nat (Succ (Succ Zero)) (Succ Zero)  
+
+-- add_nat (Succ (Succ Zero)) (Succ Zero) reduces in following steps
+
+-- add_nat (Succ (Succ Zero)) (Succ Zero)
+-- add_nat (Succ Zero) (Succ (Succ Zero))    -- using second definition
+-- add_nat Zero (Succ (Succ (Succ Zero)))    -- using second definition
+-- (Succ (Succ (Succ Zero)))                 -- using first definition
+
+-- which is nothing but 3
+</code></pre>
+<h2 id="generics">Generics</h2>
+<p>Till now, the above examples introduced data declarations of nullary type constructors only e.g. <code>Bool</code>, <code>Color</code>, <code>Shape</code> and <code>Nat</code>. These nullary types are also called <strong>concrete types</strong>. Since every term has type, what is the type (or I should say kind) of all concrete types? Answer is <code>*</code>. What! a star? Yes, the <code>*</code> is the type (kind) of all concrete types and this term belongs to the <strong>Kind</strong> level.</p>
+<p>What would be the type constructors with arity greater than zero? Let's define such a type</p>
+<pre><code class="language-haskell">data List a = Nil | Cons a (List a)
+</code></pre>
+<p>Here's what you infer from this data declaration:</p>
+<ol>
+<li><code>List a</code> is a concrete type for some concrete type <code>a</code>. Hence type (kind) of term <code>List</code> would be <code>* -&gt; *</code>. Here, the type constructor <code>List</code> is not a concrete type. The variable type term <code>a</code> can be replaced by any concrete type term in <code>List a</code> to construct a list type e.g. <code>List Int</code>, <code>List Bool</code>, <code>List Nat</code> or even <code>List (List Int)</code>.</li>
+<li><code>Nil :: List a</code></li>
+<li><code>Cons :: a -&gt; (List a) -&gt; (List a)</code></li>
+</ol>
+<p>Here's how you make a term of type <code>List Int</code>:</p>
+<pre><code class="language-haskell">list_of_integers :: List Int
+list_of_integers = Cons 1 (Cons 4 (Cons 5 Nil))
+</code></pre>
+<p>If you know C++, then you know about template classes and functions. Or in Java, you'll be familiar with generics in it. In C++ or Java, a similar declaration of a variable of type 'list of integers' would be</p>
+<pre><code class="language-cpp">list&lt;int&gt; list_of_integers;
+</code></pre>
+<p>Actually there is no such type <code>list</code> in C++ or Java. Instead there is a <code>vector</code> class. I used it just for analogy.</p>
+<p>Here you can see that <code>list&lt;int&gt;</code> in C++ or Java is nothing but a type level application between terms <code>list</code> and <code>int</code>, which is just <code>list int</code> in Haskell.</p>
+<p>In Haskell, there is already a pre-defined list type with different symbols used for constructors <code>List</code>, <code>Nil</code> and <code>Cons</code> in our example. Those are</p>
+<ol>
+<li>In type level, <code>([])</code> is type constructor. Hence <code>[Int]</code>, <code>[Bool]</code> are concrete types. <code>[a]</code> is syntactic sugar for <code>([]) a</code>. Hence <code>[Int]</code> is actually <code>([]) Int</code>.</li>
+<li>In data level, <code>[]</code> is <code>Nil</code> data constructor. Haskell can distinguish the role of <code>[]</code> because it knows where it is being used, in type level or data level.</li>
+<li>The data constructor <code>(:)</code> is replacement for <code>Cons</code>. <code>(:)</code> is an infix operator and is right associative.</li>
+</ol>
+<p>Hence a variable term of type <code>[Int]</code> can be defined in Haskell by</p>
+<pre><code class="language-haskell">list_of_ints :: [Int]
+list_of_ints = 1:4:5:[]
+</code></pre>
+<p>There's another syntactic sugar for <code>a:b:c:d:[]</code> in Haskell, that is <code>[a, b, c, d]</code>. So above list assignment can be written simply</p>
+<pre><code class="language-haskell">list_of_ints :: [Int]
+list_of_ints = [1, 4, 5]
+</code></pre>
+<p>So now you know what magics Haskell is doing when you write a list in notation <code>[a, b, c, .. g, h]</code>.</p>
+<p>There's a lot more to be told about functional programming but I am afraid that the post has already gone long, so here I conclude it. The functional programming has its roots in <a href="https://en.wikipedia.org/wiki/Lambda_calculus">Lambda calculus</a> which is a mathematical framework for computation and <a href="https://en.wikipedia.org/wiki/Type_theory">Type theory</a>. I have borrowed many concepts from these theories into this post, still many things are left as they can not be covered in a single post. In future I'll be writing on them, so stay tuned!</p>
+<!--kg-card-end: markdown-->
+    </div>
+        <footer class="single-footer container medium">
+            <div class="single-footer-left">
+            </div>
+            <div class="single-footer-middle">
+                <div class="single-footer-top">
+                    <h3 class="single-footer-title">Published by:</h3>
+                    <div class="author-list">
+                            <div
+                                class="author-image-placeholder u-placeholder square">
+                                <a href="../author/shubham/index.html" title="Shubham Jain">
+                                    <img class="author-image lazyload u-object-fit"
+                                        data-srcset="//www.gravatar.com/avatar/6c67fa1ad49dda4a129d920273b39b03?s&#x3D;250&amp;d&#x3D;mm&amp;r&#x3D;x"
+                                        src="http://www.gravatar.com/avatar/6c67fa1ad49dda4a129d920273b39b03?s=250&amp;d=mm&amp;r=x"
+                                        srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                        alt="Shubham Jain">
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                <div class="single-footer-bottom">
+                    <div class="share">
+                        <a class="share-link share-link-facebook"
+                            href="https://www.facebook.com/sharer.php?u=http://localhost:8080/an-introduction-to-functional-programming/"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="icon icon-facebook">
+                                <use xlink:href="#facebook"></use>
+                            </svg>
+                            Share
+                        </a>
+                        <a class="share-link share-link-twitter"
+                            href="https://twitter.com/intent/tweet?url=http://localhost:8080/an-introduction-to-functional-programming/&text=An%20introduction%20to%20functional%20programming"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg class="icon icon-twitter">
+                                <use xlink:href="#twitter"></use>
+                            </svg>
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="single-footer-right">
+                    <div class="navigation navigation-next">
+                        <a class="navigation-link" href="../arithmetical-theorems-with-lambda-calculus/index.html"
+                            aria-label="Next post">
+                            <svg class="icon navigation-icon">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
+                        </a>
+                    </div>
+            </div>
+        </footer>
+</article>
+                            </main>
+</div>
+        </div>
+        <footer class="site-footer container">
+    <div class="social">
+            <a class="social-item social-item-twitter"
+                href="https://twitter.com/shhaumb" target="_blank"
+                rel="noopener noreferrer" aria-label="Twitter">
+                <svg class="icon">
+                    <use xlink:href="#twitter-box"></use>
+                </svg>
+            </a>
+        <a class="social-item social-item-rss"
+            href="https://feedly.com/i/subscription/feed/http://localhost:8080/rss/"
+            target="_blank" rel="noopener noreferrer" aria-label="RSS">
+            <svg class="icon">
+                <use xlink:href="#rss-box"></use>
+            </svg>
+        </a>
+    </div>
+
+    <div class="copyright">
+        Powered by <a href="https://ghost.org/" target="_blank"
+            rel="noopener noreferrer">Ghost</a>
+    </div>
+
+    <nav class="footer-nav">
+            <a class="menu-item menu-item-contact"
+        href="http://localhost:8080/contact/">Contact</a>
+
+        <a class="menu-item js-theme" href="index.html#" data-system="System theme" data-dark="Dark theme" data-light="Light theme">
+            <svg class="icon theme-icon theme-icon-system">
+                <use xlink:href="#circle-half-full"></use>
+            </svg>
+            <svg class="icon theme-icon theme-icon-dark">
+                <use xlink:href="#brightness-2"></use>
+            </svg>
+            <svg class="icon theme-icon theme-icon-light">
+                <use xlink:href="#white-balance-sunny"></use>
+            </svg>
+            <span class="theme-text">System theme</span>
+        </a>
+    </nav>
+</footer>        <div class="modal-overlay">
+    <div class="modal modal-search">
+        <div class="form-wrapper">
+            <input class="modal-input search-input" type="search" placeholder="Enter keyword...">
+            <button class="form-button search-button" aria-label="Search">
+                <svg class="icon icon-search">
+                    <use xlink:href="#magnify"></use>
+                </svg>
+                <svg class="icon icon-close">
+                    <use xlink:href="#window-close"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="search-result"></div>
+    </div>
+    <button class="button-icon modal-close" aria-label="Close">
+        <svg class="icon icon-close">
+            <use xlink:href="#window-close"></use>
+        </svg>
+    </button>
+</div>        <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+        It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+          PhotoSwipe keeps only 3 of them in the DOM to save memory.
+          Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>    </div>
+
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous">
+    </script>
+    <script src="../assets/built/main.min.js@v=698f1f05d3"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js" integrity="sha512-xR+IAyN+t9EBIOOJw5m83FTVMDsPd63IhJ3ElP4gmfUFnQlX9+eWGLp3P4t3gIjpo2Z1JzqtW/5cjgn+oru3yQ==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-zc7WDnCM3aom2EziyDIRAtQg1mVXLdILE09Bo+aE1xk0AM2c2cVLfSW9NrxE5tKTX44WBY0Z2HClZ05ur9vB6A==" crossorigin="anonymous"></script>
+</body>
+
+</html>
